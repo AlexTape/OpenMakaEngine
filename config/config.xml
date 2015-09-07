@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<opencv_storage>
+    <!--<storagePath>/storage/emulated/0/Android/data/de.alextape.openmaka/files</storagePath>-->
+    <storagePath>/home/thinker/ClionProjects/OpenMakaEngine</storagePath>
+    <defaultObjectImage>/images/card.jpg</defaultObjectImage>
+    <statisticsMode>true</statisticsMode>
+    <statisticsFile>test-results/statistics.csv</statisticsFile>
+    <debugMode>false</debugMode>
+    <useWindows>false</useWindows>
+    <saveResultFrames>true</saveResultFrames>
+    <sceneFrame>
+        <maxImageSize>320</maxImageSize>
+    </sceneFrame>
+    <analyzer>
+        <detector>SIFT</detector>
+        <extractor>SIFT</extractor>
+        <matcher>BF</matcher>
+        <minimumInliers>10</minimumInliers>
+        <minimumMatches>4</minimumMatches>
+        <nnDistanceRatio>0.6</nnDistanceRatio>
+        <kGroups>2</kGroups>
+        <ransacReprojectionThreshold>3.0</ransacReprojectionThreshold>
+    </analyzer>
+    <tracker>
+        <maxCorners>80</maxCorners>
+        <qualityLevel>0.1</qualityLevel>
+        <minimumDistance>5</minimumDistance>
+    </tracker>
+</opencv_storage>
