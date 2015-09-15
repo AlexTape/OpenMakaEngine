@@ -135,7 +135,7 @@ void Analyzer::initExtractor(std::string &type) {
     }
     else if (type == "AKAZE") {
         extractor = cv::Ptr<cv::DescriptorExtractor>(new cv::AKAZE());
-        distance = cv::NORM_L2SQR;
+        distance = cv::NORM_HAMMING;
     }
 }
 

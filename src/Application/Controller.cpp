@@ -642,7 +642,8 @@ int Controller::test(int test, int quantifier) {
         //*********** SIFT BF Tests ***********//
         testConfigurations.push_back(std::vector<string>{"SIFT", "SIFT", "BF"});
         testConfigurations.push_back(std::vector<string>{"SIFT", "BRIEF", "BF"});
-        // TODO fix testConfigurations.push_back(std::vector<string>{"SIFT", "ORB", "BF"});
+		// TODO fix SIFT ORB BF
+		testConfigurations.push_back(std::vector<string>{"SIFT", "ORB", "BF"});
         testConfigurations.push_back(std::vector<string>{"SIFT", "SURF", "BF"});
         testConfigurations.push_back(std::vector<string>{"SIFT", "BRISK", "BF"});
         testConfigurations.push_back(std::vector<string>{"SIFT", "FREAK", "BF"});
@@ -651,7 +652,8 @@ int Controller::test(int test, int quantifier) {
         //*********** SIFT FLANN Tests ***********//
         testConfigurations.push_back(std::vector<string>{"SIFT", "SIFT", "FLANN"});
         testConfigurations.push_back(std::vector<string>{"SIFT", "BRIEF", "FLANN"});
-        // TODO fix testConfigurations.push_back(std::vector<string>{"SIFT", "ORB", "FLANN"});
+		// TODO fix SIFT ORB FLANN
+        testConfigurations.push_back(std::vector<string>{"SIFT", "ORB", "FLANN"});
         testConfigurations.push_back(std::vector<string>{"SIFT", "SURF", "FLANN"});
         testConfigurations.push_back(std::vector<string>{"SIFT", "BRISK", "FLANN"});
         testConfigurations.push_back(std::vector<string>{"SIFT", "FREAK", "FLANN"});
