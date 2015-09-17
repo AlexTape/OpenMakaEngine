@@ -178,15 +178,21 @@ bool Analyzer::analyze(cv::Mat &gray, std::vector<cv::KeyPoint> &keypoints, cv::
 
     try {
 
-        // TODO fix testConfigurations.push_back(std::vector<string>{"SIFT", "ORB", ...});
         if (detector->name() == "Feature2D.SIFT" && extractor->name() == "Feature2D.ORB") {
-
+            // TODO fix testConfigurations.push_back(std::vector<string>{"SIFT", "ORB", ...});
             // see http://code.opencv.org/issues/2987 and http://code.opencv.org/issues/1277
 
             // OpenCV Error: Assertion failed (dsize.area() || (inv_scale_x > 0 && inv_scale_y > 0)) in resize, file ../opencv-2.4.11/modules/imgproc/src/imgwarp.cpp, line 1969
             // ../opencv-2.4.11/modules/imgproc/src/imgwarp.cpp:1969: error: (-215) dsize.area() || (inv_scale_x > 0 && inv_scale_y > 0) in function resize
 
             // is sift-orb supposed to work? Skip this configuration till functionality is fixed..
+
+            // fix test results (dirty way);
+            if (IS_BRUTEFORCE_MATCHER) {
+                Controller::statistics("Matcher", (string) "BF");
+            } else {
+                Controller::statistics("Matcher", (string) "FLANN");
+            }
             return false;
         }
 

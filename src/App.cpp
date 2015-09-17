@@ -29,9 +29,9 @@ int main(int ac, char **av) {
 
     cv::initModule_nonfree();
 
-//    processVideo();
+    processVideo();
 //    processImagePair();
-    processTests();
+//    processTests();
 
     return 0;
 }

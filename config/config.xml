@@ -3,11 +3,11 @@
     <!--<storagePath>/storage/emulated/0/Android/data/de.alextape.openmaka/files</storagePath>-->
     <storagePath>/home/thinker/ClionProjects/OpenMakaEngine</storagePath>
     <defaultObjectImage>/images/card.jpg</defaultObjectImage>
-    <statisticsMode>true</statisticsMode>
+    <statisticsMode>false</statisticsMode>
     <statisticsFile>test-results/statistics.csv</statisticsFile>
     <debugMode>false</debugMode>
     <useWindows>false</useWindows>
-    <saveResultFrames>true</saveResultFrames>
+    <saveResultFrames>false</saveResultFrames>
     <sceneFrame>
         <maxImageSize>320</maxImageSize>
     </sceneFrame>
