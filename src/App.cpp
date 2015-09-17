@@ -80,8 +80,8 @@ int processTests() {
     Controller *controller = Controller::getInstance();
     Controller::STORAGE_PATH = path;
 
-    // do testcase 0 (all) 51 times
-    controller->test(0, 51);
+    // do testcase 0 (all) 101 times
+    controller->test(0, 101);
 
     // idle to view images
     if (Controller::MODE_USE_WINDOWS) {

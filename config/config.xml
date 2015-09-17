@@ -13,7 +13,7 @@
     </sceneFrame>
     <analyzer>
         <detector>SIFT</detector>
-        <extractor>SIFT</extractor>
+        <extractor>ORB</extractor>
         <matcher>BF</matcher>
         <minimumInliers>10</minimumInliers>
         <minimumMatches>4</minimumMatches>
