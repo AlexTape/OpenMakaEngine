@@ -1,3 +1,4 @@
+#pragma once
 /**
  * @file akaze_features.cpp
  * @brief Class that defines cv::AKAZE

@@ -1,3 +1,4 @@
+#pragma once
 #ifndef OPENMAKAENGINE_DRAWER_CPP
 #define OPENMAKAENGINE_DRAWER_CPP
 

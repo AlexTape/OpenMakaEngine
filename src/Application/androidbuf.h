@@ -1,3 +1,4 @@
+#pragma once
 #ifdef __ANDROID__
 
 #ifndef OPENMAKAENGINE_ANDROIDBUFFER_H

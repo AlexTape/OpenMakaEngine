@@ -1,0 +1,156 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Source Files\Application">
+      <UniqueIdentifier>{d8b079eb-3aec-4461-9938-930cd2904916}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Application\akaze">
+      <UniqueIdentifier>{1165aeb2-9803-439c-888f-c9c3e652c83a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Application\NewFilter2">
+      <UniqueIdentifier>{1e0e5bfc-35af-425a-ad4f-bb870a1297f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Application\Tracker">
+      <UniqueIdentifier>{c47adb67-1ddc-4bdf-9960-4e0b2b086ea0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Application">
+      <UniqueIdentifier>{c34910f4-7d3b-44a5-892a-3c33eb53252a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Application\akaze">
+      <UniqueIdentifier>{a13abf6a-7603-43e3-b6e5-a3a1e12b18de}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Application\Tracker">
+      <UniqueIdentifier>{2b0bc3ef-fd57-41c2-b7b3-a135a0b8e69d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Application\Helper">
+      <UniqueIdentifier>{f717ba68-7a8e-4cfe-8b56-8a6820ff8919}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Application\Helper">
+      <UniqueIdentifier>{8c1a069a-f898-4a11-8335-ad828e01a280}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Application\Recognition">
+      <UniqueIdentifier>{cd335074-db6b-40b9-8a4a-137340992267}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Application\Recognition">
+      <UniqueIdentifier>{a0d0b60c-c62a-4e5d-80d2-9679d033a211}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ReadMe.txt" />
+    <None Include="..\src\Application\akaze\LICENSE">
+      <Filter>Header Files\Application\akaze</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stdafx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Application\Controller.h">
+      <Filter>Header Files\Application</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Application\androidbuf.h">
+      <Filter>Header Files\Application</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Application\Tracker\Tracker.h">
+      <Filter>Header Files\Application\Tracker</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Application\Recognition\SceneFrame.h">
+      <Filter>Header Files\Application\Recognition</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Application\Recognition\Analyzer.h">
+      <Filter>Header Files\Application\Recognition</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Application\Recognition\ObjectPattern.h">
+      <Filter>Header Files\Application\Recognition</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Application\Helper\Statistics.h">
+      <Filter>Header Files\Application\Helper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Application\Helper\Timer.h">
+      <Filter>Header Files\Application\Helper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Application\Helper\Drawer.h">
+      <Filter>Header Files\Application\Helper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Application\akaze\akaze_utils.h">
+      <Filter>Header Files\Application\akaze</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Application\akaze\AKAZE.h">
+      <Filter>Header Files\Application\akaze</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Application\akaze\akaze_config.h">
+      <Filter>Header Files\Application\akaze</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Application\akaze\akaze_features.h">
+      <Filter>Header Files\Application\akaze</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Application\akaze\akaze_fed.h">
+      <Filter>Header Files\Application\akaze</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Application\akaze\akaze_nldiffusion_functions.h">
+      <Filter>Header Files\Application\akaze</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenMakaEngine.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Application\Controller.cpp">
+      <Filter>Source Files\Application</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Application\Tracker\Tracker.cpp">
+      <Filter>Source Files\Application\Tracker</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Application\Recognition\SceneFrame.cpp">
+      <Filter>Source Files\Application\Recognition</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Application\Recognition\Analyzer.cpp">
+      <Filter>Source Files\Application\Recognition</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Application\Recognition\ObjectPattern.cpp">
+      <Filter>Source Files\Application\Recognition</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Application\Helper\Timer.cpp">
+      <Filter>Source Files\Application\Helper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Application\Helper\Drawer.cpp">
+      <Filter>Source Files\Application\Helper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Application\Helper\Statistics.cpp">
+      <Filter>Source Files\Application\Helper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Application\akaze\akaze_utils.cpp">
+      <Filter>Source Files\Application\akaze</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Application\akaze\AKAZE.cpp">
+      <Filter>Source Files\Application\akaze</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Application\akaze\akaze_features.cpp">
+      <Filter>Source Files\Application\akaze</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Application\akaze\akaze_fed.cpp">
+      <Filter>Source Files\Application\akaze</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Application\akaze\akaze_nldiffusion_functions.cpp">
+      <Filter>Source Files\Application\akaze</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

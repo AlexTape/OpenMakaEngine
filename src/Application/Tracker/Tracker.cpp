@@ -1,3 +1,4 @@
+#pragma once
 #ifndef OPENMAKAENGINE_TRACKER_CPP
 #define OPENMAKAENGINE_TRACKER_CPP
 
@@ -307,7 +308,7 @@ vector<cv::Point2f> Tracker::calcAffineTransformation(vector<cv::Point2f> &point
 cv::Mat Tracker::createAreaMask(cv::Size imageSize, vector<cv::Point2f> &points) {
 
     // create feature areaMask
-    cv::Mat areaMask(imageSize, CV_8UC1);
+    cv::Mat areaMask;
 
     int zero = 0;
     areaMask = zero;

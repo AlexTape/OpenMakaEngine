@@ -16,97 +16,103 @@
 
 #define ControllerTAG "OpenMaka::Controller"
 
-namespace om {
+namespace om
+{
 
-    class Controller {
 
-    private:
+	class Controller
+	{
+	private:
+		static Controller* inst_;
 
-        static Controller *inst_;
+		Controller(void);
 
-        Controller(void);
+		static bool MODE_OBJECT_DETECTION;
+		static bool MODE_TRACKING;
+		static bool MODE_OPENGL;
 
-        static bool MODE_OBJECT_DETECTION;
-        static bool MODE_TRACKING;
-        static bool MODE_OPENGL;
+		bool STATE_OBJECT_FOUND;
+		bool STATE_TRACKING_OBJECT;
+		bool STATE_DISPLAY_OPENGL;
 
-        bool STATE_OBJECT_FOUND;
-        bool STATE_TRACKING_OBJECT;
-        bool STATE_DISPLAY_OPENGL;
+		static om::Analyzer* analyzer; // Analyzer object
+		static om::Tracker* tracker; // Tracker object
+		static om::Statistics* stats; // Statistics object
 
-        static om::Analyzer *analyzer; // Analyzer object
-        static om::Tracker *tracker;    // Tracker object
-        static om::Statistics *stats; // Statistics object
+	public:
 
-    public:
+		virtual ~Controller(void);
 
-        virtual ~Controller(void);
+		static Controller* getInstance();
 
-        static Controller *getInstance();
+		int initialize(cv::Mat& frame, std::string storagePath);
 
-        int initialize(cv::Mat &frame, std::string storagePath);
+		int displayFunction(cv::Mat& mRgbaFrame, cv::Mat& mGrayFrame);
 
-        int displayFunction(cv::Mat &mRgbaFrame, cv::Mat &mGrayFrame);
+		void glResize(int height, int width);
 
-        void glResize(int height, int width);
+		int setDetector(std::string type);
 
-        int setDetector(std::string type);
+		int setExtractor(std::string type);
 
-        int setExtractor(std::string type);
+		int setMatcher(std::string type);
 
-        int setMatcher(std::string type);
+		void isModeObjectDetection(bool isActive);
 
-        void isModeObjectDetection(bool isActive);
+		void isModeTracking(bool isActive);
 
-        void isModeTracking(bool isActive);
+		void isModeOpenGL(bool isActive);
 
-        void isModeOpenGL(bool isActive);
+		void glRender();
 
-        void glRender();
+		bool createObjectPattern(cv::Mat& rgb, cv::Mat& gray);
 
-        bool createObjectPattern(cv::Mat &rgb, cv::Mat &gray);
+		bool configure(std::string detector, std::string extractor, std::string matcher);
 
-        bool configure(std::string detector, std::string extractor, std::string matcher);
+		om::Timer* clock;
 
-        om::Timer *clock;
+		om::Timer* timer;
+		om::SceneFrame* sceneFrame;
 
-        om::Timer *timer;
-        om::SceneFrame *sceneFrame;
+		static bool isInitialized;
 
-        static bool isInitialized;
+		static cv::Size FRAME_SIZE;
+		static int MAX_IMAGE_SIZE;
+		static int IMAGE_SCALE;
+		static std::string STATISTICS_FILE;
 
-        static cv::Size FRAME_SIZE;
-        static int MAX_IMAGE_SIZE;
-        static int IMAGE_SCALE;
-        static std::string STATISTICS_FILE;
+		static std::string STORAGE_PATH;
+		static std::string CONFIG_FILE;
+		static std::string DEFAULT_OBJECT_IMAGE;
 
-        static std::string STORAGE_PATH;
-        static std::string CONFIG_FILE;
-        static std::string DEFAULT_OBJECT_IMAGE;
+		static void statistics(std::string key, int value);
 
-        static void statistics(std::string key, int value);
+		static void statistics(std::string key, double value);
 
-        static void statistics(std::string key, double value);
+		static void statistics(std::string key, bool value);
 
-        static void statistics(std::string key, bool value);
+		static void statistics(std::string key, long unsigned int value);
 
-        static void statistics(std::string key, long unsigned int value);
+		static void statistics(std::string key, std::string value);
 
-        static void statistics(std::string key, std::string value);
+		static bool MODE_STATISTICS;
+		static bool MODE_DEBUG;
+		static bool MODE_USE_WINDOWS;
+		static bool MODE_SAVE_RESULT_FRAMES;
 
-        static bool MODE_STATISTICS;
-        static bool MODE_DEBUG;
-        static bool MODE_USE_WINDOWS;
-        static bool MODE_SAVE_RESULT_FRAMES;
+		void isModeDebug(bool isActive);
 
-        void isModeDebug(bool isActive);
+		void isModeStatistics(bool isActive);
 
-        void isModeStatistics(bool isActive);
+		int test(int test, int quantifier);
 
-        int test(int test, int quantifier);
-
-    };
-
+					typedef struct Configuration
+	{
+		std::string detector;
+		std::string extractor;
+		std::string matcher;
+	} Configuration;
+	};
 };
 
 #endif

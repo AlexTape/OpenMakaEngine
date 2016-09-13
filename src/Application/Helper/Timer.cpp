@@ -1,3 +1,4 @@
+#pragma once
 #ifndef OPENMAKAENGINE_TIMER_CPP
 #define OPENMAKAENGINE_TIMER_CPP
 

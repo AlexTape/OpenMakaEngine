@@ -1,14 +1,12 @@
 cmake_minimum_required(VERSION 3.2)
 project(OpenMakaEngine)
 
+set (OpenCV_DIR C:/OpenCV-2.4.10/opencv/build)
 find_package(OpenCV REQUIRED )
-find_package(OpenGL REQUIRED )
 
 include_directories(${OpenCV_INCLUDE_DIR})
-include_directories(${OpenGL_INCLUDE_DIR})
 
 link_directories(${OpenCV_LIBRARY_DIR})
-link_directories(${OpenGL_LIBRARY_DIR})
 
 #add_subdirectory(src/akaze)
 #IF(UNIX)

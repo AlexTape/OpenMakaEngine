@@ -1,3 +1,4 @@
+#pragma once
 #ifndef OPENMAKAENGINE_ANALYZER_CPP
 #define OPENMAKAENGINE_ANALYZER_CPP
 
@@ -16,6 +17,10 @@
 #include "../Controller.h"
 #include "../Helper/Drawer.h"
 #include "../akaze/akaze_features.h"
+
+#define isnan(x) _isnan(x)
+#define isinf(x) (!_finite(x))
+#define fpu_error(x) (isinf(x) || isnan(x))
 
 using namespace std;
 using namespace om;
@@ -641,7 +646,10 @@ bool Analyzer::process(SceneFrame &sceneFrame) {
 //                                           int maxMatchesDrawn) {
 
                 // open custom windows
-                imshow(DETECTOR + "-" + EXTRACTOR + "-" + MATCHER, sceneFrame.gray);
+				string window_name = DETECTOR + "-" + EXTRACTOR + "-" + MATCHER;
+				cv::namedWindow(window_name, 0); //resizable window;
+	            cv::resizeWindow(window_name,800,800);
+				imshow(window_name, sceneFrame.gray);
             }
 
         } else {
