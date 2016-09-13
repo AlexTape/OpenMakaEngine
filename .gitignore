@@ -1,5 +1,8 @@
 ## Customs
 
+images/
+config/
+
 !standap-bench/bin/Debug/lern4halbeechte.txt
 
 Server/bin/Debug/target
