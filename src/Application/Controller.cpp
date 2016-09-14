@@ -578,14 +578,14 @@ int Controller::test(int test, int quantifier)
 {
 	Mat sceneRgbImageData, sceneGrayImageData, objectRgbImage, objectGrayImage;
 
-	sceneRgbImageData = cv::imread(STORAGE_PATH + "/images/card_frame.jpg");
+	sceneRgbImageData = cv::imread(STORAGE_PATH + "\\images\\card_frame.jpg");
 	if (sceneRgbImageData.empty())
 	{
 		cout << "Scene image cannot be read" << endl;
 		return 1;
 	}
 
-	objectRgbImage = cv::imread(STORAGE_PATH + "/images/card.jpg");
+	objectRgbImage = cv::imread(STORAGE_PATH + "\\images\\card.jpg");
 	if (objectRgbImage.empty())
 	{
 		cout << "Object image cannot be read" << endl;
@@ -1316,14 +1316,15 @@ int Controller::test(int test, int quantifier)
 		conf.matcher = "FLANN";
 	}
 
-	for (Configuration& configuration : testConfigurations)
+	for (std::vector<Configuration>::iterator config = testConfigurations.begin(); config != testConfigurations.end(); ++config)
+
 	{
 		// clone images to clean previous drawings
 		sceneRgbImage = sceneRgbImageData.clone();
 		sceneGrayImage = sceneGrayImageData.clone();
 
 		// configure controller
-		configure(configuration.extractor, configuration.detector, configuration.matcher);
+		configure(config->extractor, config->detector, config->matcher);
 
 		cout << "-----------------------------------------------------" << endl;
 		cout << "Testing.. [Detector=" << Analyzer::DETECTOR << ", Extractor=" << Analyzer::EXTRACTOR <<

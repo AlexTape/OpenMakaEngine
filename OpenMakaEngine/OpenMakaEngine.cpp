@@ -16,11 +16,9 @@ using namespace om;
 
 static string path = "C:\\Users\\tebbje\\workspace\\OpenMakaEngine";
 
-int _tmain(int argc, _TCHAR* argv[])
+int compareImages()
 {
-	//namedWindow("Main", CV_WINDOW_KEEPRATIO); //resizable window;
-
-	Mat sceneRgbImage, sceneGrayImage;
+		Mat sceneRgbImage, sceneGrayImage;
 
 	sceneRgbImage = cv::imread(path + "\\images\\card_frame.bmp");
 	if (sceneRgbImage.empty())
@@ -55,6 +53,39 @@ int _tmain(int argc, _TCHAR* argv[])
 		}
 	}
 	while (!shouldQuit);
+	return 0;
+}
+
+int processTests()
+{
+		
+    Controller *controller = Controller::getInstance();
+    Controller::STORAGE_PATH = path;
+
+    // do testcase 0 (all) 1 times
+    controller->test(0, 1);
+
+    // idle to view images
+    if (Controller::MODE_USE_WINDOWS) {
+        bool shouldQuit = false;
+        do {
+            // Read the keyboard input:
+            int keyCode = cv::waitKey(5);
+            if (keyCode == 27 || keyCode == 'q') {
+                shouldQuit = true;
+            }
+        } while (!shouldQuit);
+    }
 
 	return 0;
 }
+
+int _tmain(int argc, _TCHAR* argv[])
+{
+
+	processTests();
+
+	return 0;
+}
+
+
