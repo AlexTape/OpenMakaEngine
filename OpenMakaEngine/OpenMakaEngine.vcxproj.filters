@@ -19,9 +19,6 @@
     <Filter Include="Source Files\Application\akaze">
       <UniqueIdentifier>{1165aeb2-9803-439c-888f-c9c3e652c83a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Application\NewFilter2">
-      <UniqueIdentifier>{1e0e5bfc-35af-425a-ad4f-bb870a1297f1}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Application\Tracker">
       <UniqueIdentifier>{c47adb67-1ddc-4bdf-9960-4e0b2b086ea0}</UniqueIdentifier>
     </Filter>

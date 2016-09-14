@@ -125,7 +125,7 @@ Controller* Controller::getInstance()
 int Controller::initialize(cv::Mat& frame, string storagePath)
 {
 	// set default config file
-	CONFIG_FILE = "/config/config.xml";
+	CONFIG_FILE = "\\config\\config.xml";
 
 	// initializing..
 	isInitialized = false;
@@ -567,7 +567,7 @@ bool Controller::configure(string detector, string extractor, string matcher)
 
 	if (MODE_DEBUG && returnThis)
 	{
-		cout << "Controller initialized [Detector=" << Analyzer::DETECTOR << ", Extractor" << Analyzer::EXTRACTOR <<
+		cout << "Controller initialized [Detector=" << Analyzer::DETECTOR << ", Extractor=" << Analyzer::EXTRACTOR <<
 			", Matcher" << Analyzer::MATCHER << "]" << endl;
 	}
 
@@ -1457,14 +1457,14 @@ int Controller::test(int test, int quantifier)
 		testConfigurations.push_back(conf);
 	}
 
-	for (std::vector<Configuration>::iterator config = testConfigurations.begin(); config != testConfigurations.end(); ++config)
+	for (vector<Configuration>::iterator config = testConfigurations.begin(); config != testConfigurations.end(); ++config)
 	{
 		// clone images to clean previous drawings
 		sceneRgbImage = sceneRgbImageData.clone();
 		sceneGrayImage = sceneGrayImageData.clone();
 
 		// configure controller
-		configure(config->extractor, config->detector, config->matcher);
+		configure(config->detector, config->extractor, config->matcher);
 
 		cout << "-----------------------------------------------------" << endl;
 		cout << "Testing.. [Detector=" << Analyzer::DETECTOR << ", Extractor=" << Analyzer::EXTRACTOR <<

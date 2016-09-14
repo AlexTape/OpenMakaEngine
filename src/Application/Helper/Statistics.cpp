@@ -72,7 +72,7 @@ void Statistics::write(string filename) {
     if (!wroteHeader) {
 
         // overwrite existing file
-        file.open(Controller::STORAGE_PATH + "/" + filename, ios::out);
+        file.open(Controller::STORAGE_PATH + "\\" + filename, ios::out);
 
         // print header line (csv)
         for (int i = 0; i < (sizeof(values) / sizeof(*values)); i++) {
@@ -91,7 +91,7 @@ void Statistics::write(string filename) {
     }
 
     // reopen file in appending mode
-    file.open(Controller::STORAGE_PATH + "/" + filename, ios::app);
+    file.open(Controller::STORAGE_PATH + "\\" + filename, ios::app);
 
     // print all attribute keys
     // for (auto outer_iter = stats.begin(); outer_iter != stats.end(); ++outer_iter) {
