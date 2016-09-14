@@ -1,4 +1,5 @@
 #pragma once
+#include "../../../OpenMakaEngine/Int2SizeType.h"
 #ifndef OPENMAKAENGINE_ANALYZER_CPP
 #define OPENMAKAENGINE_ANALYZER_CPP
 
@@ -296,6 +297,8 @@ bool Analyzer::analyzeSceneFrame(SceneFrame &sceneFrame) {
         }
         return false;
     }
+
+	return true;
 }
 
 void Analyzer::matchBinaryDescriptors(SceneFrame &sceneFrame, std::vector<cv::Point2f> &goodTrainKeypoints,
@@ -589,7 +592,8 @@ bool Analyzer::process(SceneFrame &sceneFrame) {
         int inliers = 0;
 
         // NOTE: minimum 4 points needed to calc homography
-        if (goodSceneKeypoints.size() >= MINIMUM_MATCHES) {
+		Int2SizeType _MINIMUM_MATCHES (MINIMUM_MATCHES);
+        if (_MINIMUM_MATCHES <= goodSceneKeypoints.size()) {
             if (goodSceneKeypoints.size() == goodTrainKeypoints.size()) {
 
                 if (Controller::MODE_STATISTICS) {

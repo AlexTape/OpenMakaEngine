@@ -456,8 +456,10 @@ int Controller::displayFunction(cv::Mat& mRgbaFrame, cv::Mat& mGrayFrame)
 		// save image?
 		if (Controller::MODE_SAVE_RESULT_FRAMES)
 		{
-			imwrite(Controller::STORAGE_PATH + "/test-results/" + Analyzer::DETECTOR
-			        + "-" + Analyzer::EXTRACTOR + "-" + Analyzer::MATCHER + ".jpg", mRgbaFrame);
+			string imagepath = Controller::STORAGE_PATH + "\\test-results\\" + Analyzer::DETECTOR
+			        + "-" + Analyzer::EXTRACTOR + "-" + Analyzer::MATCHER + ".jpg";
+			cout << "Write result-image to: " + imagepath << endl;
+			imwrite(imagepath, mRgbaFrame);
 		}
 	}
 

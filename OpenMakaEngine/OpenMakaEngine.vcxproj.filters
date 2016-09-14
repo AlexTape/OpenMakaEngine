@@ -104,6 +104,9 @@
     <ClInclude Include="..\src\Application\akaze\akaze_nldiffusion_functions.h">
       <Filter>Header Files\Application\akaze</Filter>
     </ClInclude>
+    <ClInclude Include="Int2SizeType.h">
+      <Filter>Header Files\Application\Helper</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">

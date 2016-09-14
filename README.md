@@ -9,3 +9,5 @@ To make a decision which configuration should be used with OpenMakaAndroid App, 
 Feel free to contribute or fork.
 
 Kindly AlexTape
+
+p.s. for test results create the "\test-results" folder in your project root first!
