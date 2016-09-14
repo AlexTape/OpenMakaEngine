@@ -52,6 +52,8 @@
     <None Include="..\src\Application\akaze\LICENSE">
       <Filter>Header Files\Application\akaze</Filter>
     </None>
+    <None Include="..\config\config.xml" />
+    <None Include="..\README.md" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">

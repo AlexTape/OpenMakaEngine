@@ -66,7 +66,7 @@ int processTests()
     controller->test(0, 1);
 
     // idle to view images
-    if (Controller::MODE_USE_WINDOWS) {
+    //if (Controller::MODE_USE_WINDOWS) {
         bool shouldQuit = false;
         do {
             // Read the keyboard input:
@@ -75,7 +75,7 @@ int processTests()
                 shouldQuit = true;
             }
         } while (!shouldQuit);
-    }
+   // }
 
 	return 0;
 }
