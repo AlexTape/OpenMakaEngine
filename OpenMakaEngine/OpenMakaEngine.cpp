@@ -18,11 +18,11 @@ static string path = "C:\\Users\\tebbje\\workspace\\OpenMakaEngine";
 
 int _tmain(int argc, _TCHAR* argv[])
 {
-	namedWindow("Main", CV_WINDOW_KEEPRATIO); //resizable window;
+	//namedWindow("Main", CV_WINDOW_KEEPRATIO); //resizable window;
 
 	Mat sceneRgbImage, sceneGrayImage;
 
-	sceneRgbImage = cv::imread(path + "\\images\\card_frame.jpg");
+	sceneRgbImage = cv::imread(path + "\\images\\card_frame.bmp");
 	if (sceneRgbImage.empty())
 	{
 		std::cout << "Scene image cannot be read" << std::endl;

@@ -576,528 +576,532 @@ bool Controller::configure(string detector, string extractor, string matcher)
 
 int Controller::test(int test, int quantifier)
 {
-	//Mat sceneRgbImageData, sceneGrayImageData, objectRgbImage, objectGrayImage;
+	Mat sceneRgbImageData, sceneGrayImageData, objectRgbImage, objectGrayImage;
 
-	//sceneRgbImageData = cv::imread(STORAGE_PATH + "/images/card_frame.jpg");
-	//if (sceneRgbImageData.empty())
-	//{
-	//	cout << "Scene image cannot be read" << endl;
-	//	return 1;
-	//}
+	sceneRgbImageData = cv::imread(STORAGE_PATH + "/images/card_frame.jpg");
+	if (sceneRgbImageData.empty())
+	{
+		cout << "Scene image cannot be read" << endl;
+		return 1;
+	}
 
-	//objectRgbImage = cv::imread(STORAGE_PATH + "/images/card.jpg");
-	//if (objectRgbImage.empty())
-	//{
-	//	cout << "Object image cannot be read" << endl;
-	//	return 2;
-	//}
+	objectRgbImage = cv::imread(STORAGE_PATH + "/images/card.jpg");
+	if (objectRgbImage.empty())
+	{
+		cout << "Object image cannot be read" << endl;
+		return 2;
+	}
 
-	//cvtColor(sceneRgbImageData, sceneGrayImageData, CV_RGB2GRAY);
-	//cvtColor(objectRgbImage, objectGrayImage, CV_RGB2GRAY);
+	cvtColor(sceneRgbImageData, sceneGrayImageData, CV_RGB2GRAY);
+	cvtColor(objectRgbImage, objectGrayImage, CV_RGB2GRAY);
 
-	//if (!isInitialized)
-	//{
-	//	initialize(sceneRgbImageData, STORAGE_PATH);
-	//}
+	if (!isInitialized)
+	{
+		initialize(sceneRgbImageData, STORAGE_PATH);
+	}
 
-	//// set testing mode and save actual configuration
-	//bool wasObjectDetection = MODE_OBJECT_DETECTION;
-	//bool wasTracking = MODE_TRACKING;
-	//bool wasStatistics = MODE_STATISTICS;
-	//MODE_OBJECT_DETECTION = true;
-	//MODE_TRACKING = false;
-	//MODE_STATISTICS = true;
+	// set testing mode and save actual configuration
+	bool wasObjectDetection = MODE_OBJECT_DETECTION;
+	bool wasTracking = MODE_TRACKING;
+	bool wasStatistics = MODE_STATISTICS;
+	MODE_OBJECT_DETECTION = true;
+	MODE_TRACKING = false;
+	MODE_STATISTICS = true;
 
-	//if (Controller::MODE_DEBUG)
-	//{
-	//	cout << "-----------------------------------------------------" << endl;
-	//	cout << "-----------------------------------------------------" << endl;
-	//	cout << " T E S T I N G   S U I T E" << endl;
-	//	cout << "-----------------------------------------------------" << endl;
-	//}
+	if (Controller::MODE_DEBUG)
+	{
+		cout << "-----------------------------------------------------" << endl;
+		cout << "-----------------------------------------------------" << endl;
+		cout << " T E S T I N G   S U I T E" << endl;
+		cout << "-----------------------------------------------------" << endl;
+	}
 
-	//// some variables to control testing routine
-	//int doRuns = quantifier;
+	// some variables to control testing routine
+	int doRuns = quantifier;
 
-	//// default test configuration
-	//bool doSIFT = false;
-	//bool doFAST = false;
-	//bool doGFTT = false;
-	//bool doMSER = false;
-	//bool doDENSE = false;
-	//bool doSTAR = false;
-	//bool doSURF = false;
-	//bool doBRISK = false;
-	//bool doORB = false;
-	//bool doAKAZE = false;
+	// default test configuration
+	bool doSIFT = false;
+	bool doFAST = false;
+	bool doGFTT = false;
+	bool doMSER = false;
+	bool doDENSE = false;
+	bool doSTAR = false;
+	bool doSURF = false;
+	bool doBRISK = false;
+	bool doORB = false;
+	bool doAKAZE = false;
 
-	//// trigger tests
-	//switch (test)
-	//{
-	//case 0:
-	//	doSIFT = true;
-	//	doFAST = true;
-	//	doGFTT = true;
-	//	doMSER = true;
-	//	doDENSE = true;
-	//	doSTAR = true;
-	//	doSURF = true;
-	//	doBRISK = true;
-	//	doORB = true;
-	//	doAKAZE = true;
-	//	break;
-	//case 1:
-	//	doSIFT = true;
-	//	break;
-	//case 2:
-	//	doFAST = true;
-	//	break;
-	//case 3:
-	//	doGFTT = true;
-	//	break;
-	//case 4:
-	//	doMSER = true;
-	//	break;
-	//case 5:
-	//	doDENSE = true;
-	//	break;
-	//case 6:
-	//	doSTAR = true;
-	//	break;
-	//case 7:
-	//	doSURF = true;
-	//	break;
-	//case 8:
-	//	doBRISK = true;
-	//	break;
-	//case 9:
-	//	doORB = true;
-	//	break;
-	//case 10:
-	//	doAKAZE = true;
-	//	break;
-	//default:
-	//	return 0;
-	//}
+	// trigger tests
+	switch (test)
+	{
+	case 0:
+		doSIFT = true;
+		doFAST = true;
+		doGFTT = true;
+		doMSER = true;
+		doDENSE = true;
+		doSTAR = true;
+		doSURF = true;
+		doBRISK = true;
+		doORB = true;
+		doAKAZE = true;
+		break;
+	case 1:
+		doSIFT = true;
+		break;
+	case 2:
+		doFAST = true;
+		break;
+	case 3:
+		doGFTT = true;
+		break;
+	case 4:
+		doMSER = true;
+		break;
+	case 5:
+		doDENSE = true;
+		break;
+	case 6:
+		doSTAR = true;
+		break;
+	case 7:
+		doSURF = true;
+		break;
+	case 8:
+		doBRISK = true;
+		break;
+	case 9:
+		doORB = true;
+		break;
+	case 10:
+		doAKAZE = true;
+		break;
+	default:
+		return 0;
+	}
 
-	//// init variables
-	//Mat sceneRgbImage, sceneGrayImage;
-	//vector<Configuration> testConfigurations;
-	//Configuration* conf;
+	// init variables
+	Mat sceneRgbImage, sceneGrayImage;
+	vector<Configuration> testConfigurations;
+	Configuration* conf[5];
 
-	//if (doSIFT)
-	//{
+	if (doSIFT)
+	{
 
-	//	// TODO problem: c++10 is not supporting initializer lists. so compile original code with c++11 will work (vs2013)
+		// TODO problem: c++10 is not supporting initializer lists. so compile original code with c++11 will work (vs2013)
 
-	//	//*********** SIFT BF Tests ***********//
-	//	conf = {.extractor = "SIFT", "SIFT", "BF"};
-	//	testConfigurations.push_back(conf);
-	//	conf = {"SIFT", "BRIEF", "BF"};
-	//	testConfigurations.push_back(conf);
-	//	// TODO fix SIFT ORB BF
-	//	conf = {"SIFT", "ORB", "BF"};
-	//	testConfigurations.push_back(conf);
-	//	conf = {"SIFT", "SURF", "BF"};
-	//	testConfigurations.push_back(conf);
-	//	conf = {"SIFT", "BRISK", "BF"};
-	//	testConfigurations.push_back(conf);
-	//	conf = {"SIFT", "FREAK", "BF"};
-	//	testConfigurations.push_back(conf);
-	//	conf = {"SIFT", "AKAZE", "BF"};
-	//	testConfigurations.push_back(conf);
+		//*********** SIFT BF Tests ***********//
+		conf[0]->detector = "SIFT";
+		conf[0]->extractor = "SIFT";
+		conf[0]->matcher = "BF";
+		//conf[0][0] = {"SIFT", "SIFT", "BF"};
+		//testConfigurations.push_back(conf);
 
-	//	//*********** SIFT FLANN Tests ***********//
-	//	conf = {"SIFT", "SIFT", "FLANN"};
-	//	testConfigurations.push_back(conf);
-	//	conf = {"SIFT", "BRIEF", "FLANN"};
-	//	testConfigurations.push_back(conf);
-	//	// TODO fix SIFT ORB FLANN
-	//	conf = {"SIFT", "ORB", "FLANN"};
-	//	testConfigurations.push_back(conf);
-	//	conf = {"SIFT", "SURF", "FLANN"};
-	//	testConfigurations.push_back(conf);
-	//	conf = {"SIFT", "BRISK", "FLANN"};
-	//	testConfigurations.push_back(conf);
-	//	conf = {"SIFT", "FREAK", "FLANN"};
-	//	testConfigurations.push_back(conf);
-	//	conf = {"SIFT", "AKAZE", "FLANN"};
-	//	testConfigurations.push_back(conf);
-	//}
+		conf = {"SIFT", "BRIEF", "BF"};
+		testConfigurations.push_back(conf);
+		// TODO fix SIFT ORB BF
+		conf = {"SIFT", "ORB", "BF"};
+		testConfigurations.push_back(conf);
+		conf = {"SIFT", "SURF", "BF"};
+		testConfigurations.push_back(conf);
+		conf = {"SIFT", "BRISK", "BF"};
+		testConfigurations.push_back(conf);
+		conf = {"SIFT", "FREAK", "BF"};
+		testConfigurations.push_back(conf);
+		conf = {"SIFT", "AKAZE", "BF"};
+		testConfigurations.push_back(conf);
 
-	//if (doFAST)
-	//{
-	//	//*********** FAST BF Tests ***********//
-	//	conf = {"FAST", "SIFT", "BF"};
-	//	testConfigurations.push_back(conf);
-	//	conf = {"FAST", "BRIEF", "BF"};
-	//	testConfigurations.push_back(conf);
-	//	conf = {"FAST", "ORB", "BF"};
-	//	testConfigurations.push_back(conf);
-	//	conf = {"FAST", "SURF", "BF"};
-	//	testConfigurations.push_back(conf);
-	//	conf = {"FAST", "BRISK", "BF"};
-	//	testConfigurations.push_back(conf);
-	//	conf = {"FAST", "FREAK", "BF"};
-	//	testConfigurations.push_back(conf);
-	//	conf = {"FAST", "AKAZE", "BF"};
-	//	testConfigurations.push_back(conf);
+		//*********** SIFT FLANN Tests ***********//
+		conf = {"SIFT", "SIFT", "FLANN"};
+		testConfigurations.push_back(conf);
+		conf = {"SIFT", "BRIEF", "FLANN"};
+		testConfigurations.push_back(conf);
+		// TODO fix SIFT ORB FLANN
+		conf = {"SIFT", "ORB", "FLANN"};
+		testConfigurations.push_back(conf);
+		conf = {"SIFT", "SURF", "FLANN"};
+		testConfigurations.push_back(conf);
+		conf = {"SIFT", "BRISK", "FLANN"};
+		testConfigurations.push_back(conf);
+		conf = {"SIFT", "FREAK", "FLANN"};
+		testConfigurations.push_back(conf);
+		conf = {"SIFT", "AKAZE", "FLANN"};
+		testConfigurations.push_back(conf);
+	}
 
-	//	//*********** FAST FLANN Tests ***********//
-	//	conf = {"FAST", "SIFT", "FLANN"};
-	//	testConfigurations.push_back(conf);
-	//	conf = {"FAST", "BRIEF", "FLANN"};
-	//	testConfigurations.push_back(conf);
-	//	conf = {"FAST", "ORB", "FLANN"};
-	//	testConfigurations.push_back(conf);
-	//	conf = {"FAST", "SURF", "FLANN"};
-	//	testConfigurations.push_back(conf);
-	//	conf = {"FAST", "BRISK", "FLANN"};
-	//	testConfigurations.push_back(conf);
-	//	conf = {"FAST", "FREAK", "FLANN"};
-	//	testConfigurations.push_back(conf);
-	//	conf = {"FAST", "AKAZE", "FLANN"};
-	//	testConfigurations.push_back(conf);
-	//}
+	if (doFAST)
+	{
+		//*********** FAST BF Tests ***********//
+		conf = {"FAST", "SIFT", "BF"};
+		testConfigurations.push_back(conf);
+		conf = {"FAST", "BRIEF", "BF"};
+		testConfigurations.push_back(conf);
+		conf = {"FAST", "ORB", "BF"};
+		testConfigurations.push_back(conf);
+		conf = {"FAST", "SURF", "BF"};
+		testConfigurations.push_back(conf);
+		conf = {"FAST", "BRISK", "BF"};
+		testConfigurations.push_back(conf);
+		conf = {"FAST", "FREAK", "BF"};
+		testConfigurations.push_back(conf);
+		conf = {"FAST", "AKAZE", "BF"};
+		testConfigurations.push_back(conf);
 
-	//if (doGFTT)
-	//{
-	//	//*********** GFTT BF Tests ***********//
-	//	conf = {"GFTT", "SIFT", "BF"};
-	//	testConfigurations.push_back(conf);
-	//	conf = {"GFTT", "BRIEF", "BF"};
-	//	testConfigurations.push_back(conf);
-	//	conf = {"GFTT", "ORB", "BF"};
-	//	testConfigurations.push_back(conf);
-	//	conf = {"GFTT", "SURF", "BF"};
-	//	testConfigurations.push_back(conf);
-	//	conf = {"GFTT", "BRISK", "BF"};
-	//	testConfigurations.push_back(conf);
-	//	conf = {"GFTT", "FREAK", "BF"};
-	//	testConfigurations.push_back(conf);
-	//	conf = {"GFTT", "AKAZE", "BF"};
-	//	testConfigurations.push_back(conf);
+		//*********** FAST FLANN Tests ***********//
+		conf = {"FAST", "SIFT", "FLANN"};
+		testConfigurations.push_back(conf);
+		conf = {"FAST", "BRIEF", "FLANN"};
+		testConfigurations.push_back(conf);
+		conf = {"FAST", "ORB", "FLANN"};
+		testConfigurations.push_back(conf);
+		conf = {"FAST", "SURF", "FLANN"};
+		testConfigurations.push_back(conf);
+		conf = {"FAST", "BRISK", "FLANN"};
+		testConfigurations.push_back(conf);
+		conf = {"FAST", "FREAK", "FLANN"};
+		testConfigurations.push_back(conf);
+		conf = {"FAST", "AKAZE", "FLANN"};
+		testConfigurations.push_back(conf);
+	}
 
-	//	//*********** GFTT FLANN Tests ***********//
-	//	conf = {"GFTT", "SIFT", "FLANN"};
-	//	testConfigurations.push_back(conf);
-	//	conf = {"GFTT", "BRIEF", "FLANN"};
-	//	testConfigurations.push_back(conf);
-	//	conf = {"GFTT", "ORB", "FLANN"};
-	//	testConfigurations.push_back(conf);
-	//	conf = {"GFTT", "SURF", "FLANN"};
-	//	testConfigurations.push_back(conf);
-	//	conf = {"GFTT", "BRISK", "FLANN"};
-	//	testConfigurations.push_back(conf);
-	//	conf = {"GFTT", "FREAK", "FLANN"};
-	//	testConfigurations.push_back(conf);
-	//	conf = {"GFTT", "AKAZE", "FLANN"};
-	//	testConfigurations.push_back(conf);
-	//}
+	if (doGFTT)
+	{
+		//*********** GFTT BF Tests ***********//
+		conf = {"GFTT", "SIFT", "BF"};
+		testConfigurations.push_back(conf);
+		conf = {"GFTT", "BRIEF", "BF"};
+		testConfigurations.push_back(conf);
+		conf = {"GFTT", "ORB", "BF"};
+		testConfigurations.push_back(conf);
+		conf = {"GFTT", "SURF", "BF"};
+		testConfigurations.push_back(conf);
+		conf = {"GFTT", "BRISK", "BF"};
+		testConfigurations.push_back(conf);
+		conf = {"GFTT", "FREAK", "BF"};
+		testConfigurations.push_back(conf);
+		conf = {"GFTT", "AKAZE", "BF"};
+		testConfigurations.push_back(conf);
 
-	//if (doMSER)
-	//{
-	//	//*********** MSER BF Tests ***********//
-	//	conf = {"MSER", "SIFT", "BF"};
-	//	testConfigurations.push_back(conf);
-	//	conf = {"MSER", "BRIEF", "BF"};
-	//	testConfigurations.push_back(conf);
-	//	conf = {"MSER", "ORB", "BF"};
-	//	testConfigurations.push_back(conf);
-	//	conf = {"MSER", "SURF", "BF"};
-	//	testConfigurations.push_back(conf);
-	//	conf = {"MSER", "BRISK", "BF"};
-	//	testConfigurations.push_back(conf);
-	//	conf = {"MSER", "FREAK", "BF"};
-	//	testConfigurations.push_back(conf);
-	//	conf = {"MSER", "AKAZE", "BF"};
-	//	testConfigurations.push_back(conf);
+		//*********** GFTT FLANN Tests ***********//
+		conf = {"GFTT", "SIFT", "FLANN"};
+		testConfigurations.push_back(conf);
+		conf = {"GFTT", "BRIEF", "FLANN"};
+		testConfigurations.push_back(conf);
+		conf = {"GFTT", "ORB", "FLANN"};
+		testConfigurations.push_back(conf);
+		conf = {"GFTT", "SURF", "FLANN"};
+		testConfigurations.push_back(conf);
+		conf = {"GFTT", "BRISK", "FLANN"};
+		testConfigurations.push_back(conf);
+		conf = {"GFTT", "FREAK", "FLANN"};
+		testConfigurations.push_back(conf);
+		conf = {"GFTT", "AKAZE", "FLANN"};
+		testConfigurations.push_back(conf);
+	}
 
-	//	//*********** MSER FLANN Tests ***********//
-	//	conf = {"MSER", "SIFT", "FLANN"};
-	//	testConfigurations.push_back(conf);
-	//	conf = {"MSER", "BRIEF", "FLANN"};
-	//	testConfigurations.push_back(conf);
-	//	conf = {"MSER", "ORB", "FLANN"};
-	//	testConfigurations.push_back(conf);
-	//	conf = {"MSER", "SURF", "FLANN"};
-	//	testConfigurations.push_back(conf);
-	//	conf = {"MSER", "BRISK", "FLANN"};
-	//	testConfigurations.push_back(conf);
-	//	conf = {"MSER", "FREAK", "FLANN"};
-	//	testConfigurations.push_back(conf);
-	//	conf = {"MSER", "AKAZE", "FLANN"};
-	//	testConfigurations.push_back(conf);
-	//}
+	if (doMSER)
+	{
+		//*********** MSER BF Tests ***********//
+		conf = {"MSER", "SIFT", "BF"};
+		testConfigurations.push_back(conf);
+		conf = {"MSER", "BRIEF", "BF"};
+		testConfigurations.push_back(conf);
+		conf = {"MSER", "ORB", "BF"};
+		testConfigurations.push_back(conf);
+		conf = {"MSER", "SURF", "BF"};
+		testConfigurations.push_back(conf);
+		conf = {"MSER", "BRISK", "BF"};
+		testConfigurations.push_back(conf);
+		conf = {"MSER", "FREAK", "BF"};
+		testConfigurations.push_back(conf);
+		conf = {"MSER", "AKAZE", "BF"};
+		testConfigurations.push_back(conf);
 
-	//if (doDENSE)
-	//{
-	//	//*********** DENSE BF Tests ***********//
-	//	conf = {"DENSE", "SIFT", "BF"};
-	//	testConfigurations.push_back(conf);
-	//	conf = {"DENSE", "BRIEF", "BF"};
-	//	testConfigurations.push_back(conf);
-	//	conf = {"DENSE", "ORB", "BF"};
-	//	testConfigurations.push_back(conf);
-	//	conf = {"DENSE", "SURF", "BF"};
-	//	testConfigurations.push_back(conf);
-	//	conf = {"DENSE", "BRISK", "BF"};
-	//	testConfigurations.push_back(conf);
-	//	conf = {"DENSE", "FREAK", "BF"};
-	//	testConfigurations.push_back(conf);
-	//	conf = {"DENSE", "AKAZE", "BF"};
-	//	testConfigurations.push_back(conf);
+		//*********** MSER FLANN Tests ***********//
+		conf = {"MSER", "SIFT", "FLANN"};
+		testConfigurations.push_back(conf);
+		conf = {"MSER", "BRIEF", "FLANN"};
+		testConfigurations.push_back(conf);
+		conf = {"MSER", "ORB", "FLANN"};
+		testConfigurations.push_back(conf);
+		conf = {"MSER", "SURF", "FLANN"};
+		testConfigurations.push_back(conf);
+		conf = {"MSER", "BRISK", "FLANN"};
+		testConfigurations.push_back(conf);
+		conf = {"MSER", "FREAK", "FLANN"};
+		testConfigurations.push_back(conf);
+		conf = {"MSER", "AKAZE", "FLANN"};
+		testConfigurations.push_back(conf);
+	}
 
-	//	//*********** DENSE FLANN Tests ***********//
-	//	conf = {"DENSE", "SIFT", "FLANN"};
-	//	testConfigurations.push_back(conf);
-	//	conf = {"DENSE", "BRIEF", "FLANN"};
-	//	testConfigurations.push_back(conf);
-	//	conf = {"DENSE", "ORB", "FLANN"};
-	//	testConfigurations.push_back(conf);
-	//	conf = {"DENSE", "SURF", "FLANN"};
-	//	testConfigurations.push_back(conf);
-	//	conf = {"DENSE", "BRISK", "FLANN"};
-	//	testConfigurations.push_back(conf);
-	//	conf = {"DENSE", "FREAK", "FLANN"};
-	//	testConfigurations.push_back(conf);
-	//	conf = {"DENSE", "AKAZE", "FLANN"};
-	//	testConfigurations.push_back(conf);
-	//}
+	if (doDENSE)
+	{
+		//*********** DENSE BF Tests ***********//
+		conf = {"DENSE", "SIFT", "BF"};
+		testConfigurations.push_back(conf);
+		conf = {"DENSE", "BRIEF", "BF"};
+		testConfigurations.push_back(conf);
+		conf = {"DENSE", "ORB", "BF"};
+		testConfigurations.push_back(conf);
+		conf = {"DENSE", "SURF", "BF"};
+		testConfigurations.push_back(conf);
+		conf = {"DENSE", "BRISK", "BF"};
+		testConfigurations.push_back(conf);
+		conf = {"DENSE", "FREAK", "BF"};
+		testConfigurations.push_back(conf);
+		conf = {"DENSE", "AKAZE", "BF"};
+		testConfigurations.push_back(conf);
 
-	//if (doSTAR)
-	//{
-	//	//*********** STAR BF Tests ***********//
-	//	conf = {"STAR", "SIFT", "BF"};
-	//	testConfigurations.push_back(conf);
-	//	conf = {"STAR", "BRIEF", "BF"};
-	//	testConfigurations.push_back(conf);
-	//	conf = {"STAR", "ORB", "BF"};
-	//	testConfigurations.push_back(conf);
-	//	conf = {"STAR", "SURF", "BF"};
-	//	testConfigurations.push_back(conf);
-	//	conf = {"STAR", "BRISK", "BF"};
-	//	testConfigurations.push_back(conf);
-	//	conf = {"STAR", "FREAK", "BF"};
-	//	testConfigurations.push_back(conf);
-	//	conf = {"STAR", "AKAZE", "BF"};
-	//	testConfigurations.push_back(conf);
+		//*********** DENSE FLANN Tests ***********//
+		conf = {"DENSE", "SIFT", "FLANN"};
+		testConfigurations.push_back(conf);
+		conf = {"DENSE", "BRIEF", "FLANN"};
+		testConfigurations.push_back(conf);
+		conf = {"DENSE", "ORB", "FLANN"};
+		testConfigurations.push_back(conf);
+		conf = {"DENSE", "SURF", "FLANN"};
+		testConfigurations.push_back(conf);
+		conf = {"DENSE", "BRISK", "FLANN"};
+		testConfigurations.push_back(conf);
+		conf = {"DENSE", "FREAK", "FLANN"};
+		testConfigurations.push_back(conf);
+		conf = {"DENSE", "AKAZE", "FLANN"};
+		testConfigurations.push_back(conf);
+	}
 
-	//	//*********** STAR FLANN Tests ***********//
-	//	conf = {"STAR", "SIFT", "FLANN"};
-	//	testConfigurations.push_back(conf);
-	//	conf = {"STAR", "BRIEF", "FLANN"};
-	//	testConfigurations.push_back(conf);
-	//	conf = {"STAR", "ORB", "FLANN"};
-	//	testConfigurations.push_back(conf);
-	//	conf = {"STAR", "SURF", "FLANN"};
-	//	testConfigurations.push_back(conf);
-	//	conf = {"STAR", "BRISK", "FLANN"};
-	//	testConfigurations.push_back(conf);
-	//	conf = {"STAR", "FREAK", "FLANN"};
-	//	testConfigurations.push_back(conf);
-	//	conf = {"STAR", "AKAZE", "FLANN"};
-	//	testConfigurations.push_back(conf);
-	//}
+	if (doSTAR)
+	{
+		//*********** STAR BF Tests ***********//
+		conf = {"STAR", "SIFT", "BF"};
+		testConfigurations.push_back(conf);
+		conf = {"STAR", "BRIEF", "BF"};
+		testConfigurations.push_back(conf);
+		conf = {"STAR", "ORB", "BF"};
+		testConfigurations.push_back(conf);
+		conf = {"STAR", "SURF", "BF"};
+		testConfigurations.push_back(conf);
+		conf = {"STAR", "BRISK", "BF"};
+		testConfigurations.push_back(conf);
+		conf = {"STAR", "FREAK", "BF"};
+		testConfigurations.push_back(conf);
+		conf = {"STAR", "AKAZE", "BF"};
+		testConfigurations.push_back(conf);
 
-	//if (doSURF)
-	//{
-	//	//*********** SURF BF Tests ***********//
-	//	conf = {"SURF", "SIFT", "BF"};
-	//	testConfigurations.push_back(conf);
-	//	conf = {"SURF", "BRIEF", "BF"};
-	//	testConfigurations.push_back(conf);
-	//	conf = {"SURF", "ORB", "BF"};
-	//	testConfigurations.push_back(conf);
-	//	conf = {"SURF", "SURF", "BF"};
-	//	testConfigurations.push_back(conf);
-	//	conf = {"SURF", "BRISK", "BF"};
-	//	testConfigurations.push_back(conf);
-	//	conf = {"SURF", "FREAK", "BF"};
-	//	testConfigurations.push_back(conf);
-	//	conf = {"SURF", "AKAZE", "BF"};
-	//	testConfigurations.push_back(conf);
+		//*********** STAR FLANN Tests ***********//
+		conf = {"STAR", "SIFT", "FLANN"};
+		testConfigurations.push_back(conf);
+		conf = {"STAR", "BRIEF", "FLANN"};
+		testConfigurations.push_back(conf);
+		conf = {"STAR", "ORB", "FLANN"};
+		testConfigurations.push_back(conf);
+		conf = {"STAR", "SURF", "FLANN"};
+		testConfigurations.push_back(conf);
+		conf = {"STAR", "BRISK", "FLANN"};
+		testConfigurations.push_back(conf);
+		conf = {"STAR", "FREAK", "FLANN"};
+		testConfigurations.push_back(conf);
+		conf = {"STAR", "AKAZE", "FLANN"};
+		testConfigurations.push_back(conf);
+	}
 
-	//	//*********** SURF FLANN Tests ***********//
-	//	conf = {"SURF", "SIFT", "FLANN"};
-	//	testConfigurations.push_back(conf);
-	//	conf = {"SURF", "BRIEF", "FLANN"};
-	//	testConfigurations.push_back(conf);
-	//	conf = {"SURF", "ORB", "FLANN"};
-	//	testConfigurations.push_back(conf);
-	//	conf = {"SURF", "SURF", "FLANN"};
-	//	testConfigurations.push_back(conf);
-	//	conf = {"SURF", "BRISK", "FLANN"};
-	//	testConfigurations.push_back(conf);
-	//	conf = {"SURF", "FREAK", "FLANN"};
-	//	testConfigurations.push_back(conf);
-	//	conf = {"SURF", "AKAZE", "FLANN"};
-	//	testConfigurations.push_back(conf);
-	//}
+	if (doSURF)
+	{
+		//*********** SURF BF Tests ***********//
+		conf = {"SURF", "SIFT", "BF"};
+		testConfigurations.push_back(conf);
+		conf = {"SURF", "BRIEF", "BF"};
+		testConfigurations.push_back(conf);
+		conf = {"SURF", "ORB", "BF"};
+		testConfigurations.push_back(conf);
+		conf = {"SURF", "SURF", "BF"};
+		testConfigurations.push_back(conf);
+		conf = {"SURF", "BRISK", "BF"};
+		testConfigurations.push_back(conf);
+		conf = {"SURF", "FREAK", "BF"};
+		testConfigurations.push_back(conf);
+		conf = {"SURF", "AKAZE", "BF"};
+		testConfigurations.push_back(conf);
 
-	//if (doBRISK)
-	//{
-	//	//*********** BRISK BF Tests ***********//
-	//	conf = {"BRISK", "SIFT", "BF"};
-	//	testConfigurations.push_back(conf);
-	//	conf = {"BRISK", "BRIEF", "BF"};
-	//	testConfigurations.push_back(conf);
-	//	conf = {"BRISK", "ORB", "BF"};
-	//	testConfigurations.push_back(conf);
-	//	conf = {"BRISK", "SURF", "BF"};
-	//	testConfigurations.push_back(conf);
-	//	conf = {"BRISK", "BRISK", "BF"};
-	//	testConfigurations.push_back(conf);
-	//	conf = {"BRISK", "FREAK", "BF"};
-	//	testConfigurations.push_back(conf);
-	//	conf = {"BRISK", "AKAZE", "BF"};
-	//	testConfigurations.push_back(conf);
+		//*********** SURF FLANN Tests ***********//
+		conf = {"SURF", "SIFT", "FLANN"};
+		testConfigurations.push_back(conf);
+		conf = {"SURF", "BRIEF", "FLANN"};
+		testConfigurations.push_back(conf);
+		conf = {"SURF", "ORB", "FLANN"};
+		testConfigurations.push_back(conf);
+		conf = {"SURF", "SURF", "FLANN"};
+		testConfigurations.push_back(conf);
+		conf = {"SURF", "BRISK", "FLANN"};
+		testConfigurations.push_back(conf);
+		conf = {"SURF", "FREAK", "FLANN"};
+		testConfigurations.push_back(conf);
+		conf = {"SURF", "AKAZE", "FLANN"};
+		testConfigurations.push_back(conf);
+	}
 
-	//	//*********** BRISK FLANN Tests ***********//
-	//	conf = {"BRISK", "SIFT", "FLANN"};
-	//	testConfigurations.push_back(conf);
-	//	conf = {"BRISK", "BRIEF", "FLANN"};
-	//	testConfigurations.push_back(conf);
-	//	conf = {"BRISK", "ORB", "FLANN"};
-	//	testConfigurations.push_back(conf);
-	//	conf = {"BRISK", "SURF", "FLANN"};
-	//	testConfigurations.push_back(conf);
-	//	conf = {"BRISK", "BRISK", "FLANN"};
-	//	testConfigurations.push_back(conf);
-	//	conf = {"BRISK", "FREAK", "FLANN"};
-	//	testConfigurations.push_back(conf);
-	//	conf = {"BRISK", "AKAZE", "FLANN"};
-	//	testConfigurations.push_back(conf);
-	//}
+	if (doBRISK)
+	{
+		//*********** BRISK BF Tests ***********//
+		conf = {"BRISK", "SIFT", "BF"};
+		testConfigurations.push_back(conf);
+		conf = {"BRISK", "BRIEF", "BF"};
+		testConfigurations.push_back(conf);
+		conf = {"BRISK", "ORB", "BF"};
+		testConfigurations.push_back(conf);
+		conf = {"BRISK", "SURF", "BF"};
+		testConfigurations.push_back(conf);
+		conf = {"BRISK", "BRISK", "BF"};
+		testConfigurations.push_back(conf);
+		conf = {"BRISK", "FREAK", "BF"};
+		testConfigurations.push_back(conf);
+		conf = {"BRISK", "AKAZE", "BF"};
+		testConfigurations.push_back(conf);
 
-	//if (doORB)
-	//{
-	//	//*********** ORB BF Tests ***********//
-	//	conf = {"ORB", "SIFT", "BF"};
-	//	testConfigurations.push_back(conf);
-	//	conf = {"ORB", "BRIEF", "BF"};
-	//	testConfigurations.push_back(conf);
-	//	conf = {"ORB", "ORB", "BF"};
-	//	testConfigurations.push_back(conf);
-	//	conf = {"ORB", "SURF", "BF"};
-	//	testConfigurations.push_back(conf);
-	//	conf = {"ORB", "BRISK", "BF"};
-	//	testConfigurations.push_back(conf);
-	//	conf = {"ORB", "FREAK", "BF"};
-	//	testConfigurations.push_back(conf);
-	//	conf = {"ORB", "AKAZE", "BF"};
-	//	testConfigurations.push_back(conf);
+		//*********** BRISK FLANN Tests ***********//
+		conf = {"BRISK", "SIFT", "FLANN"};
+		testConfigurations.push_back(conf);
+		conf = {"BRISK", "BRIEF", "FLANN"};
+		testConfigurations.push_back(conf);
+		conf = {"BRISK", "ORB", "FLANN"};
+		testConfigurations.push_back(conf);
+		conf = {"BRISK", "SURF", "FLANN"};
+		testConfigurations.push_back(conf);
+		conf = {"BRISK", "BRISK", "FLANN"};
+		testConfigurations.push_back(conf);
+		conf = {"BRISK", "FREAK", "FLANN"};
+		testConfigurations.push_back(conf);
+		conf = {"BRISK", "AKAZE", "FLANN"};
+		testConfigurations.push_back(conf);
+	}
 
-	//	//*********** ORB FLANN Tests ***********//
-	//	conf = {"ORB", "SIFT", "FLANN"};
-	//	testConfigurations.push_back(conf);
-	//	conf = {"ORB", "BRIEF", "FLANN"};
-	//	testConfigurations.push_back(conf);
-	//	conf = {"ORB", "ORB", "FLANN"};
-	//	testConfigurations.push_back(conf);
-	//	conf = {"ORB", "SURF", "FLANN"};
-	//	testConfigurations.push_back(conf);
-	//	conf = {"ORB", "BRISK", "FLANN"};
-	//	testConfigurations.push_back(conf);
-	//	conf = {"ORB", "FREAK", "FLANN"};
-	//	testConfigurations.push_back(conf);
-	//	conf = {"ORB", "AKAZE", "FLANN"};
-	//	testConfigurations.push_back(conf);
-	//}
+	if (doORB)
+	{
+		//*********** ORB BF Tests ***********//
+		conf = {"ORB", "SIFT", "BF"};
+		testConfigurations.push_back(conf);
+		conf = {"ORB", "BRIEF", "BF"};
+		testConfigurations.push_back(conf);
+		conf = {"ORB", "ORB", "BF"};
+		testConfigurations.push_back(conf);
+		conf = {"ORB", "SURF", "BF"};
+		testConfigurations.push_back(conf);
+		conf = {"ORB", "BRISK", "BF"};
+		testConfigurations.push_back(conf);
+		conf = {"ORB", "FREAK", "BF"};
+		testConfigurations.push_back(conf);
+		conf = {"ORB", "AKAZE", "BF"};
+		testConfigurations.push_back(conf);
 
-	//if (doAKAZE)
-	//{
-	//	//*********** AKAZE BF Tests ***********//
-	//	conf = {"AKAZE", "SIFT", "BF"};
-	//	testConfigurations.push_back(conf);
-	//	conf = {"AKAZE", "BRIEF", "BF"};
-	//	testConfigurations.push_back(conf);
-	//	conf = {"AKAZE", "ORB", "BF"};
-	//	testConfigurations.push_back(conf);
-	//	conf = {"AKAZE", "SURF", "BF"};
-	//	testConfigurations.push_back(conf);
-	//	conf = {"AKAZE", "BRISK", "BF"};
-	//	testConfigurations.push_back(conf);
-	//	conf = {"AKAZE", "FREAK", "BF"};
-	//	testConfigurations.push_back(conf);
-	//	conf = {"AKAZE", "AKAZE", "BF"};
-	//	testConfigurations.push_back(conf);
+		//*********** ORB FLANN Tests ***********//
+		conf = {"ORB", "SIFT", "FLANN"};
+		testConfigurations.push_back(conf);
+		conf = {"ORB", "BRIEF", "FLANN"};
+		testConfigurations.push_back(conf);
+		conf = {"ORB", "ORB", "FLANN"};
+		testConfigurations.push_back(conf);
+		conf = {"ORB", "SURF", "FLANN"};
+		testConfigurations.push_back(conf);
+		conf = {"ORB", "BRISK", "FLANN"};
+		testConfigurations.push_back(conf);
+		conf = {"ORB", "FREAK", "FLANN"};
+		testConfigurations.push_back(conf);
+		conf = {"ORB", "AKAZE", "FLANN"};
+		testConfigurations.push_back(conf);
+	}
 
-	//	//*********** AKAZE FLANN Tests ***********//
-	//	conf = {"AKAZE", "SIFT", "FLANN"};
-	//	testConfigurations.push_back(conf);
-	//	conf = {"AKAZE", "BRIEF", "FLANN"};
-	//	testConfigurations.push_back(conf);
-	//	conf = {"AKAZE", "ORB", "FLANN"};
-	//	testConfigurations.push_back(conf);
-	//	conf = {"AKAZE", "SURF", "FLANN"};
-	//	testConfigurations.push_back(conf);
-	//	conf = {"AKAZE", "BRISK", "FLANN"};
-	//	testConfigurations.push_back(conf);
-	//	conf = {"AKAZE", "FREAK", "FLANN"};
-	//	testConfigurations.push_back(conf);
-	//	conf = {"AKAZE", "AKAZE", "FLANN"};
-	//	testConfigurations.push_back(conf);
-	//}
+	if (doAKAZE)
+	{
+		//*********** AKAZE BF Tests ***********//
+		conf = {"AKAZE", "SIFT", "BF"};
+		testConfigurations.push_back(conf);
+		conf = {"AKAZE", "BRIEF", "BF"};
+		testConfigurations.push_back(conf);
+		conf = {"AKAZE", "ORB", "BF"};
+		testConfigurations.push_back(conf);
+		conf = {"AKAZE", "SURF", "BF"};
+		testConfigurations.push_back(conf);
+		conf = {"AKAZE", "BRISK", "BF"};
+		testConfigurations.push_back(conf);
+		conf = {"AKAZE", "FREAK", "BF"};
+		testConfigurations.push_back(conf);
+		conf = {"AKAZE", "AKAZE", "BF"};
+		testConfigurations.push_back(conf);
 
-	//for (Configuration& configuration : testConfigurations)
-	//{
-	//	// clone images to clean previous drawings
-	//	sceneRgbImage = sceneRgbImageData.clone();
-	//	sceneGrayImage = sceneGrayImageData.clone();
+		//*********** AKAZE FLANN Tests ***********//
+		conf = {"AKAZE", "SIFT", "FLANN"};
+		testConfigurations.push_back(conf);
+		conf = {"AKAZE", "BRIEF", "FLANN"};
+		testConfigurations.push_back(conf);
+		conf = {"AKAZE", "ORB", "FLANN"};
+		testConfigurations.push_back(conf);
+		conf = {"AKAZE", "SURF", "FLANN"};
+		testConfigurations.push_back(conf);
+		conf = {"AKAZE", "BRISK", "FLANN"};
+		testConfigurations.push_back(conf);
+		conf = {"AKAZE", "FREAK", "FLANN"};
+		testConfigurations.push_back(conf);
+		conf = {"AKAZE", "AKAZE", "FLANN"};
+		testConfigurations.push_back(conf);
+	}
 
-	//	// configure controller
-	//	configure(configuration.extractor, configuration.detector, configuration.matcher);
+	for (Configuration& configuration : testConfigurations)
+	{
+		// clone images to clean previous drawings
+		sceneRgbImage = sceneRgbImageData.clone();
+		sceneGrayImage = sceneGrayImageData.clone();
 
-	//	cout << "-----------------------------------------------------" << endl;
-	//	cout << "Testing.. [Detector=" << Analyzer::DETECTOR << ", Extractor=" << Analyzer::EXTRACTOR <<
-	//		", Matcher=" << Analyzer::MATCHER << "]" << endl;
-	//	cout << "-----------------------------------------------------" << endl;
+		// configure controller
+		configure(configuration.extractor, configuration.detector, configuration.matcher);
 
-	//	// (re-)create object pattern
-	//	createObjectPattern(objectRgbImage, objectGrayImage);
+		cout << "-----------------------------------------------------" << endl;
+		cout << "Testing.. [Detector=" << Analyzer::DETECTOR << ", Extractor=" << Analyzer::EXTRACTOR <<
+			", Matcher=" << Analyzer::MATCHER << "]" << endl;
+		cout << "-----------------------------------------------------" << endl;
 
-	//	// do testruns
-	//	bool shouldQuit = false;
-	//	int isRun = 0;
-	//	do
-	//	{
-	//		// count testrun
-	//		isRun++;
+		// (re-)create object pattern
+		createObjectPattern(objectRgbImage, objectGrayImage);
 
-	//		// do test
-	//		int result = displayFunction(sceneRgbImage, sceneGrayImage);
+		// do testruns
+		bool shouldQuit = false;
+		int isRun = 0;
+		do
+		{
+			// count testrun
+			isRun++;
 
-	//		// print result
-	//		if (result == 1)
-	//		{
-	//			cout << "Test(" << isRun << "/" << doRuns << ") Result: Object found!" << endl;
-	//		}
-	//		else
-	//		{
-	//			cout << "Test(" << isRun << "/" << doRuns << ") Result: Failed!" << endl;
-	//		}
+			// do test
+			int result = displayFunction(sceneRgbImage, sceneGrayImage);
 
-	//		// continue?
-	//		if (isRun == doRuns)
-	//		{
-	//			shouldQuit = true;
-	//		}
-	//	}
-	//	while (!shouldQuit);
-	//}
+			// print result
+			if (result == 1)
+			{
+				cout << "Test(" << isRun << "/" << doRuns << ") Result: Object found!" << endl;
+			}
+			else
+			{
+				cout << "Test(" << isRun << "/" << doRuns << ") Result: Failed!" << endl;
+			}
 
-	//// restore last state
-	//isModeObjectDetection(wasObjectDetection);
-	//isModeTracking(wasTracking);
-	//isModeStatistics(wasStatistics);
+			// continue?
+			if (isRun == doRuns)
+			{
+				shouldQuit = true;
+			}
+		}
+		while (!shouldQuit);
+	}
 
-	//// success message
-	//if (MODE_DEBUG)
-	//{
-	//	cout << "Tests finished successfull!" << endl;
-	//	cout << "Results saved to statistics file.." << endl;
-	//}
+	// restore last state
+	isModeObjectDetection(wasObjectDetection);
+	isModeTracking(wasTracking);
+	isModeStatistics(wasStatistics);
+
+	// success message
+	if (MODE_DEBUG)
+	{
+		cout << "Tests finished successfull!" << endl;
+		cout << "Results saved to statistics file.." << endl;
+	}
 
 	return 1;
 }
