@@ -1,5 +1,4 @@
 #pragma once
-#include "../../../OpenMakaEngine/Int2SizeType.h"
 #ifndef OPENMAKAENGINE_ANALYZER_CPP
 #define OPENMAKAENGINE_ANALYZER_CPP
 
@@ -10,7 +9,6 @@
 #include <opencv2/features2d/features2d.hpp>
 #include <opencv2/nonfree/nonfree.hpp>
 #include <opencv2/calib3d/calib3d.hpp>
-#include <opencv2/imgproc/imgproc.hpp>
 #include <iostream>
 #include <iomanip>
 
@@ -18,6 +16,8 @@
 #include "../Controller.h"
 #include "../Helper/Drawer.h"
 #include "../akaze/akaze_features.h"
+#include "../Helper/Geometry.h"
+#include "../Helper/Int2SizeType.h"
 
 #define isnan(x) _isnan(x)
 #define isinf(x) (!_finite(x))
@@ -27,7 +27,7 @@ using namespace std;
 using namespace om;
 
 // init static members
-Analyzer *Analyzer::inst_ = NULL;
+Analyzer *Analyzer::inst_ = nullptr;
 string Analyzer::DETECTOR;
 string Analyzer::EXTRACTOR;
 string Analyzer::MATCHER;
@@ -37,24 +37,25 @@ float Analyzer::NN_DISTANCE_RATIO;
 int Analyzer::K_GROUPS;
 double Analyzer::RANSAC_REPROJECTION_THRESHOLD;
 
-Analyzer::Analyzer(void) {
+Analyzer::Analyzer(void): distance(0), IS_BRUTEFORCE_MATCHER(false)
+{
+	if (Controller::MODE_DEBUG)
+	{
+		cout << "Creating Analyzer instance.." << endl;
+	}
 
-    if (Controller::MODE_DEBUG) {
-        cout << "Creating Analyzer instance.." << endl;
-    }
+	// init nonfree module for SURF support
+	cv::initModule_nonfree();
 
-    // init nonfree module for SURF support
-    cv::initModule_nonfree();
+	// setup measurements
+	clock = new Timer();
+	timer = new Timer();
 
-    // setup measurements
-    clock = new Timer();
-    timer = new Timer();
+	// preinit vars to avoid segmentation faults
+	activeObjectPattern = 0;
 
-    // preinit vars to avoid segmentation faults
-    activeObjectPattern = 0;
-
-    // set variables
-    isInitialized = false;
+	// set variables
+	isInitialized = false;
 }
 
 Analyzer::~Analyzer(void) {
@@ -642,7 +643,7 @@ bool Analyzer::process(SceneFrame &sceneFrame) {
             if (Controller::MODE_USE_WINDOWS) {
 
                 // drawing contours
-                Drawer::drawContour(sceneFrame.gray, sceneFrame.objectPosition, cv::Scalar(0, 255, 0));
+                Drawer::drawContourWithRescale(sceneFrame.gray, sceneFrame.objectPosition, cv::Scalar(0, 255, 0));
 
                 //-- Show detected matches
 //        cv::Mat Drawer::drawMatchesWindow(cv::Mat query, cv::Mat pattern, const std::vector<cv::KeyPoint> &queryKp,
@@ -678,54 +679,13 @@ bool Analyzer::process(SceneFrame &sceneFrame) {
     // basic rule to devide if object was found or not
     bool objectFound = false;
     if (enoughInliers) {
-        objectFound = isRectangle(sceneFrame.objectPosition);
+        objectFound = Geometry::isRectangle(sceneFrame.objectPosition);
     }
 
     return objectFound;
 }
 
-bool Analyzer::isRectangle(vector<cv::Point2f> &rectanglePoints) {
 
-    // check the validity of transformed rectangle shape
-    // the sign of outer products of each edge vector must be the same
-    bool returnThis = true;
-
-    if (rectanglePoints.size() == 4) {
-
-        float vector[4][2];
-        int i;
-
-        vector[0][0] = rectanglePoints[1].x - rectanglePoints[0].x;
-        vector[0][1] = rectanglePoints[1].y - rectanglePoints[0].y;
-        vector[1][0] = rectanglePoints[2].x - rectanglePoints[1].x;
-        vector[1][1] = rectanglePoints[2].y - rectanglePoints[1].y;
-        vector[2][0] = rectanglePoints[3].x - rectanglePoints[2].x;
-        vector[2][1] = rectanglePoints[3].y - rectanglePoints[2].y;
-        vector[3][0] = rectanglePoints[0].x - rectanglePoints[3].x;
-        vector[3][1] = rectanglePoints[0].y - rectanglePoints[3].y;
-
-        int multiplicator;
-        float product = vector[3][0] * vector[0][1] - vector[3][1] * vector[0][0];
-        if (product > 0) {
-            multiplicator = 1;
-        } else {
-            multiplicator = -1;
-        }
-
-        for (i = 0; i < 3; i++) {
-            product = vector[i][0] * vector[i + 1][1] - vector[i][1] * vector[i + 1][0];
-            if (product * multiplicator <= 0) {
-                returnThis = false;
-                break;
-            }
-        }
-
-    } else {
-        returnThis = false;
-    }
-
-    return returnThis;
-}
 
 int Analyzer::calcInliers(SceneFrame &sceneFrame, std::vector<cv::Point2f> &goodTrainKeypoints,
                           std::vector<cv::Point2f> &goodSceneKeypoints) {

@@ -90,8 +90,6 @@ namespace om {
 
         bool missingObjectPattern();
 
-        bool isRectangle(std::vector<cv::Point2f> &rectanglePoints);
-
     };
 
 };

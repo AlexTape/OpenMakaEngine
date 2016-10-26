@@ -283,7 +283,7 @@ int Controller::displayFunction(cv::Mat& mRgbaFrame, cv::Mat& mGrayFrame)
 			}
 
 			// drawing green contours
-			Drawer::drawContour(mRgbaFrame, sceneFrame->objectPosition, cv::Scalar(0, 255, 0));
+			Drawer::drawContourWithRescale(mRgbaFrame, sceneFrame->objectPosition, cv::Scalar(0, 255, 0));
 		}
 
 		// ..and tracking enabled
@@ -371,7 +371,7 @@ int Controller::displayFunction(cv::Mat& mRgbaFrame, cv::Mat& mGrayFrame)
 					else
 					{
 						// drawing red contours
-						Drawer::drawContour(mRgbaFrame, sceneFrame->objectPosition, cv::Scalar(0, 0, 255));
+						Drawer::drawContourWithRescale(mRgbaFrame, sceneFrame->objectPosition, cv::Scalar(0, 0, 255));
 
 						// could not track object
 						STATE_TRACKING_OBJECT = false;
@@ -408,7 +408,7 @@ int Controller::displayFunction(cv::Mat& mRgbaFrame, cv::Mat& mGrayFrame)
 				}
 
 				// draw blue contours
-				Drawer::drawContour(mRgbaFrame, tracker->objectPosition, cv::Scalar(255, 0, 0));
+				Drawer::drawContourWithRescale(mRgbaFrame, tracker->objectPosition, cv::Scalar(255, 0, 0));
 			}
 		}
 

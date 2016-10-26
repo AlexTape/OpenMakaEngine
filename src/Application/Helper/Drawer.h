@@ -13,10 +13,12 @@ namespace om {
 
         virtual ~Drawer(void);
 
-
     public:
 
-        static void drawContour(cv::Mat &image, std::vector<cv::Point2f> points2d, cv::Scalar color, int thickness = 4,
+	    static void drawContour(cv::Mat &image, std::vector<cv::Point2f> points2d, cv::Scalar color, int thickness = 4,
+                                int lineType = 8, int shift = 0);
+
+        static void drawContourWithRescale(cv::Mat &image, std::vector<cv::Point2f> points2d, cv::Scalar color, int thickness = 4,
                                 int lineType = 8, int shift = 0);
 
         static void drawKeypoints(cv::Mat &image, std::vector<cv::KeyPoint> keyPoints, cv::Scalar color);
@@ -25,11 +27,11 @@ namespace om {
                                          const std::vector<cv::KeyPoint> &trainKp, std::vector<cv::DMatch> matches,
                                          int maxMatchesDrawn);
 
-        cv::Mat drawKeypointsWindow(cv::Mat query, cv::Mat pattern, const std::vector<cv::KeyPoint> &queryKp,
+        static cv::Mat drawKeypointsWindow(cv::Mat query, cv::Mat pattern, const std::vector<cv::KeyPoint> &queryKp,
                                     const std::vector<cv::KeyPoint> &trainKp, std::vector<cv::DMatch> matches,
                                     int maxMatchesDrawn);
 
-        void drawKeypointsWithResponse(cv::Mat &image, std::vector<cv::KeyPoint> keyPoints, cv::Scalar color);
+        static void drawKeypointsWithResponse(cv::Mat &image, std::vector<cv::KeyPoint> keyPoints, cv::Scalar color);
     };
 
 };

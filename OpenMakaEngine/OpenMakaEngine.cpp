@@ -3,14 +3,16 @@
 
 #include "stdafx.h"
 
+#include <iostream>
+
 #include "opencv2/highgui/highgui.hpp"
 #include <opencv2/imgproc/imgproc.hpp>
-#include <iostream>
+
 #include "../src/Application/Controller.h"
+#include "../src/Application/Recognition/Analyzer.h"
+#include "../src/Application/Helper/Drawer.h"
+#include "../src/Application/Helper/Geometry.h"
 
-//#include "Application/Controller.h"
-
-using namespace cv;
 using namespace std;
 using namespace om;
 
@@ -18,74 +20,83 @@ static string path = "C:\\Users\\tebbje\\workspace\\OpenMakaEngine";
 
 int compareImages()
 {
-		Mat sceneRgbImage, sceneGrayImage;
+	// input image
+	cv::Mat inputImage, inputImageGray;
+	cout << "Processing.." << endl;
 
-	sceneRgbImage = cv::imread(path + "\\images\\card_frame.bmp");
-	if (sceneRgbImage.empty())
+	inputImage = cv::imread(path + "\\images\\card_frame.bmp");
+	if (inputImage.empty())
 	{
-		std::cout << "Scene image cannot be read" << std::endl;
+		cout << "Scene image cannot be read" << endl;
 		return 1;
 	}
 
-	cvtColor(sceneRgbImage, sceneGrayImage, CV_RGB2GRAY);
+	// make gray
+	cvtColor(inputImage, inputImageGray, CV_RGB2GRAY);
 
-	Controller* controller = Controller::getInstance();
+	// grab frame size
+	Controller::FRAME_SIZE = cv::Size(inputImage.cols, inputImage.rows);
+	SceneFrame::MAX_IMAGE_SIZE = static_cast<int>(2000);
 
-	if (!controller->isInitialized)
-	{
-		controller->initialize(sceneRgbImage, path);
-	}
+	// configure analyzer
+	Analyzer::DETECTOR = static_cast<string>("SIFT");
+	Analyzer::EXTRACTOR = static_cast<string>("SIFT");
+	Analyzer::MATCHER = static_cast<string>("BF");
+	Analyzer::MINIMUM_INLIERS = static_cast<int>(5);
+	Analyzer::MINIMUM_MATCHES = static_cast<int>(4);
+	Analyzer::NN_DISTANCE_RATIO = static_cast<float>(0.6);
+	Analyzer::K_GROUPS = static_cast<int>(2);
+	Analyzer::RANSAC_REPROJECTION_THRESHOLD = static_cast<double>(3.0);
 
-	controller->isModeObjectDetection(true);
+	// initialize analyzer
+	auto analyzer = Analyzer::getInstance();
+	analyzer->initialize();
 
-	// call display function with frame data
-	bool shouldQuit = false;
-	do
-	{
-		// display single window with one analyzer configuration
-		controller->displayFunction(sceneRgbImage, sceneGrayImage);
+	// add default object
+	cv::Mat objectImage = cv::imread(path + "\\images\\1card.png",
+	                                 CV_LOAD_IMAGE_GRAYSCALE);
+	analyzer->createObjectPattern(objectImage);
 
-		// Read the keyboard input:
-		int keyCode = cv::waitKey(5);
-		if (keyCode == 27 || keyCode == 'q')
+	// recreate object pattern if it is not existing
+	analyzer->missingObjectPattern();
+	
+	// create new scene frame
+	SceneFrame* sceneFrame = new SceneFrame(inputImage, inputImageGray);
+
+	// analyzer processing
+	bool objectFound = analyzer->process(*sceneFrame);
+	cout << "Found: " << objectFound << endl;
+
+	// drawing green contours
+	
+
+	if (Geometry::isRectangle(sceneFrame->objectPosition)) {
+
+		vector<cv::Point2f> coords = Geometry::rescale(sceneFrame->objectPosition);
+		cv::Rect bestFit = Geometry::fitRectangle(coords);
+	
+		cv::Mat result;
+		try {
+			result = Geometry::getRoi(inputImage, bestFit);
+
+		} catch (cv::Exception& e)
 		{
-			shouldQuit = true;
+			const char* err_msg = e.what();
+			cout << "exception caught: " << err_msg << endl;
 		}
+
+		// show
+		cv::namedWindow("RESULT", CV_WINDOW_NORMAL);
+		cv::imshow("RESULT", result);
+		cvWaitKey(0);
 	}
-	while (!shouldQuit);
-	return 0;
-}
-
-int processTests()
-{
-		
-    Controller *controller = Controller::getInstance();
-    Controller::STORAGE_PATH = path;
-
-    // do testcase 0 (all) 1 times
-    controller->test(0, 1);
-
-    // idle to view images
-    //if (Controller::MODE_USE_WINDOWS) {
-        bool shouldQuit = false;
-        do {
-            // Read the keyboard input:
-            int keyCode = cv::waitKey(5);
-            if (keyCode == 27 || keyCode == 'q') {
-                shouldQuit = true;
-            }
-        } while (!shouldQuit);
-   // }
 
 	return 0;
 }
 
 int _tmain(int argc, _TCHAR* argv[])
 {
-
-	processTests();
+	compareImages();
 
 	return 0;
 }
-
-

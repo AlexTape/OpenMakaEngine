@@ -104,7 +104,10 @@
     <ClInclude Include="..\src\Application\akaze\akaze_nldiffusion_functions.h">
       <Filter>Header Files\Application\akaze</Filter>
     </ClInclude>
-    <ClInclude Include="Int2SizeType.h">
+    <ClInclude Include="..\src\Application\Helper\Geometry.h">
+      <Filter>Header Files\Application\Helper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Application\Helper\Int2SizeType.h">
       <Filter>Header Files\Application\Helper</Filter>
     </ClInclude>
   </ItemGroup>
@@ -153,6 +156,9 @@
     </ClCompile>
     <ClCompile Include="..\src\Application\akaze\akaze_nldiffusion_functions.cpp">
       <Filter>Source Files\Application\akaze</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Application\Helper\Geometry.cpp">
+      <Filter>Source Files\Application\Helper</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

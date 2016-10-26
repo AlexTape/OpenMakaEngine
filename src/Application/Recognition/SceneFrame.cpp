@@ -5,8 +5,6 @@
 #include "SceneFrame.h"
 #include "../Controller.h"
 
-#include <opencv2/nonfree/nonfree.hpp>
-
 using namespace std;
 using namespace om;
 
@@ -27,7 +25,7 @@ SceneFrame::SceneFrame(cv::Mat &rgbInputFrame, cv::Mat &grayInputFrame) {
     cv::Size graySize = gray.size();
 
     // get largest image side
-    int maxSize = 0;
+    int maxSize;
     if (graySize.width > graySize.height) {
         maxSize = graySize.width;
     } else {
@@ -39,7 +37,7 @@ SceneFrame::SceneFrame(cv::Mat &rgbInputFrame, cv::Mat &grayInputFrame) {
 
     // calc scale factor via max image size
     while ((maxSize / IMAGE_SCALE) >= MAX_IMAGE_SIZE) {
-        IMAGE_SCALE = IMAGE_SCALE + (float) 0.1;
+        IMAGE_SCALE = IMAGE_SCALE + static_cast<float>(0.1);
     }
 
     // calc calculative width/height
