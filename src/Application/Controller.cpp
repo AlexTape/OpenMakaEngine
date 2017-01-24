@@ -230,12 +230,13 @@ int Controller::initialize(cv::Mat& frame, string storagePath)
 	return 1;
 }
 
-int Controller::displayFunction(cv::Mat& mRgbaFrame, cv::Mat& mGrayFrame)
+int Controller::displayFunction(cv::Mat& mRgbaFrame, cv::Mat& mGrayFrame, string imageName)
 {
 	if (Controller::MODE_STATISTICS)
 	{
 		clock->restart();
 		Controller::stats->reset();
+		Controller::statistics("ImageName", (string) imageName);
 		Controller::statistics("Detector", (string) Analyzer::DETECTOR);
 		Controller::statistics("Extractor", (string) Analyzer::EXTRACTOR);
 	}
@@ -456,8 +457,8 @@ int Controller::displayFunction(cv::Mat& mRgbaFrame, cv::Mat& mGrayFrame)
 		// save image?
 		if (Controller::MODE_SAVE_RESULT_FRAMES)
 		{
-			string imagepath = Controller::STORAGE_PATH + "\\test-results\\" + Analyzer::DETECTOR
-			        + "-" + Analyzer::EXTRACTOR + "-" + Analyzer::MATCHER + ".jpg";
+			string imagepath = Controller::STORAGE_PATH + "\\test-results\\" + imageName + "-" + Analyzer::DETECTOR
+				+ "-" + Analyzer::EXTRACTOR + "-" + Analyzer::MATCHER + ".jpg";
 			cout << "Write result-image to: " + imagepath << endl;
 			imwrite(imagepath, mRgbaFrame);
 		}
@@ -576,27 +577,31 @@ bool Controller::configure(string detector, string extractor, string matcher)
 	return returnThis;
 }
 
-int Controller::test(int test, int quantifier)
+int Controller::test(vector<string> images, int test, int quantifier)
 {
 	Mat sceneRgbImageData, sceneGrayImageData, objectRgbImage, objectGrayImage;
 
-	sceneRgbImageData = cv::imread(STORAGE_PATH + "\\images\\card_frame.bmp");
-	if (sceneRgbImageData.empty())
-	{
-		cout << "Scene image cannot be read" << endl;
-		return 1;
-	}
-
-	objectRgbImage = cv::imread(STORAGE_PATH + "\\images\\card.png");
+	// prepare object image
+	cout << "Loading Object " << STORAGE_PATH + images.at(0) << endl;
+	objectRgbImage = cv::imread(STORAGE_PATH + images.at(0));
 	if (objectRgbImage.empty())
 	{
 		cout << "Object image cannot be read" << endl;
 		return 2;
 	}
-
-	cvtColor(sceneRgbImageData, sceneGrayImageData, CV_RGB2GRAY);
 	cvtColor(objectRgbImage, objectGrayImage, CV_RGB2GRAY);
 
+	// prepare first scene image
+	cout << "Loading Scene " << STORAGE_PATH + images.at(1) << endl;
+	sceneRgbImageData = cv::imread(STORAGE_PATH + images.at(1));
+	if (sceneRgbImageData.empty())
+	{
+		cout << "Scene image cannot be read" << endl;
+		return 1;
+	}
+	cvtColor(sceneRgbImageData, sceneGrayImageData, CV_RGB2GRAY);
+
+	// initialize
 	if (!isInitialized)
 	{
 		initialize(sceneRgbImageData, STORAGE_PATH);
@@ -1459,12 +1464,9 @@ int Controller::test(int test, int quantifier)
 		testConfigurations.push_back(conf);
 	}
 
+	// iterate configurations
 	for (vector<Configuration>::iterator config = testConfigurations.begin(); config != testConfigurations.end(); ++config)
 	{
-		// clone images to clean previous drawings
-		sceneRgbImage = sceneRgbImageData.clone();
-		sceneGrayImage = sceneGrayImageData.clone();
-
 		// configure controller
 		configure(config->detector, config->extractor, config->matcher);
 
@@ -1476,34 +1478,56 @@ int Controller::test(int test, int quantifier)
 		// (re-)create object pattern
 		createObjectPattern(objectRgbImage, objectGrayImage);
 
-		// do testruns
-		bool shouldQuit = false;
-		int isRun = 0;
-		do
+		int imageCount = images.size();
+		for (int i = 1; i < imageCount; i++)
 		{
-			// count testrun
-			isRun++;
-
-			// do test
-			int result = displayFunction(sceneRgbImage, sceneGrayImage);
-
-			// print result
-			if (result == 1)
+			// load (actual) scene image
+			cout << "Loading Scene " << STORAGE_PATH + images.at(i) << endl;
+			sceneRgbImageData = cv::imread(STORAGE_PATH + images.at(i));
+			if (sceneRgbImageData.empty())
 			{
-				cout << "Test(" << isRun << "/" << doRuns << ") Result: Object found!" << endl;
+				cout << "Scene image " << i << "/" << imageCount << " cannot be read" << endl;
+				return 1;
 			}
-			else
-			{
-				cout << "Test(" << isRun << "/" << doRuns << ") Result: Failed!" << endl;
-			}
+			cvtColor(sceneRgbImageData, sceneGrayImageData, CV_RGB2GRAY);
 
-			// continue?
-			if (isRun == doRuns)
+			// clone images to clean previous drawings
+			sceneRgbImage = sceneRgbImageData.clone();
+			sceneGrayImage = sceneGrayImageData.clone();
+
+			// do testruns
+			bool shouldQuit = false;
+			int isRun = 0;
+			do
 			{
-				shouldQuit = true;
+				// count testrun
+				isRun++;
+
+				// do test
+				string imageName = images.at(i);
+				std::size_t found = imageName.find_last_of("/\\");
+				string fileName = imageName.substr(found + 1);
+				int result = displayFunction(sceneRgbImage, sceneGrayImage, fileName);
+
+				// print result
+				if (result == 1)
+				{
+					cout << "Image " << i << "/" << imageCount - 1 << " - Test " << isRun << "/" << doRuns << " - Result: Object found!" << endl;
+				}
+				else
+				{
+					cout << "Image " << i << "/" << imageCount - 1 << " - Test " << isRun << "/" << doRuns << " - Result: FAILED!" << endl;
+				}
+
+
+				// continue?
+				if (isRun == doRuns)
+				{
+					shouldQuit = true;
+				}
 			}
+			while (!shouldQuit);
 		}
-		while (!shouldQuit);
 	}
 
 	// restore last state
@@ -1515,7 +1539,7 @@ int Controller::test(int test, int quantifier)
 	if (MODE_DEBUG)
 	{
 		cout << "Tests finished successfull!" << endl;
-		cout << "Results saved to statistics file.." << endl;
+		cout << "Results saved to statistics file: " << STATISTICS_FILE << endl;
 	}
 
 	return 1;

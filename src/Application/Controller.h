@@ -18,8 +18,6 @@
 
 namespace om
 {
-
-
 	class Controller
 	{
 	private:
@@ -47,7 +45,7 @@ namespace om
 
 		int initialize(cv::Mat& frame, std::string storagePath);
 
-		int displayFunction(cv::Mat& mRgbaFrame, cv::Mat& mGrayFrame);
+		int displayFunction(cv::Mat& mRgbaFrame, cv::Mat& mGrayFrame, std::string imageName = "nill");
 
 		void glResize(int height, int width);
 
@@ -68,6 +66,8 @@ namespace om
 		bool createObjectPattern(cv::Mat& rgb, cv::Mat& gray);
 
 		bool configure(std::string detector, std::string extractor, std::string matcher);
+		
+		int test(std::vector<std::basic_string<char>> images, int test, int quantifier);
 
 		om::Timer* clock;
 
@@ -104,14 +104,13 @@ namespace om
 
 		void isModeStatistics(bool isActive);
 
-		int test(int test, int quantifier);
 
-					typedef struct Configuration
-	{
-		std::string detector;
-		std::string extractor;
-		std::string matcher;
-	} Configuration;
+		typedef struct Configuration
+		{
+			std::string detector;
+			std::string extractor;
+			std::string matcher;
+		} Configuration;
 	};
 };
 

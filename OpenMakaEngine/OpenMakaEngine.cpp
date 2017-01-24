@@ -96,7 +96,27 @@ int compareImages()
 
 int _tmain(int argc, _TCHAR* argv[])
 {
-	compareImages();
+	//compareImages();
 
+	// tell images
+	vector<string> images;
+	images.push_back("\\objects\\book1-1.jpg");
+	images.push_back("\\objects\\book1-2.jpg");
+	images.push_back("\\objects\\book1-3.jpg");
+	images.push_back("\\objects\\book1-4.jpg");
+	images.push_back("\\objects\\book1-5.jpg");
+	images.push_back("\\objects\\book1-6.jpg");
+
+	// get controller and run tests
+	Controller* ctrl = Controller::getInstance();
+	Controller::STORAGE_PATH= "C:\\Users\\tebbje\\workspace\\OpenMakaEngine";
+	ctrl->test(images, 1, 1);
+
+	// hold window
+	cout << "DONE" << endl;
+	int wait;
+	cin >> wait;
+
+	// return
 	return 0;
 }

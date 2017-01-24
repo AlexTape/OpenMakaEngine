@@ -9,7 +9,9 @@
 using namespace std;
 using namespace om;
 
-const std::string Statistics::values[25] = {
+const std::string Statistics::values[26] = {
+
+		"ImageName",
 
         "Detector",
         "Extractor",
@@ -128,6 +130,8 @@ void Statistics::reset() {
 void Statistics::setDefaults() {
 
     // set default values
+	stats["ImageName"] = "nill";
+
     stats["Detector"] = "nill";
     stats["Extractor"] = "nill";
     stats["Matcher"] = "nill";
