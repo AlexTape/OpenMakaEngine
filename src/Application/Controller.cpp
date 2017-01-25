@@ -702,73 +702,7 @@ int Controller::test(vector<string> images, int test, int quantifier)
 		conf.extractor = "SIFT";
 		conf.matcher = "BF";
 		testConfigurations.push_back(conf);
-		//conf = {"SIFT", "BRIEF", "BF"};
-		conf.detector = "SIFT";
-		conf.extractor = "BRIEF";
-		conf.matcher = "BF";
-		testConfigurations.push_back(conf);
-		//conf = {"SIFT", "ORB", "BF"};
-		conf.detector = "SIFT";
-		conf.extractor = "ORB";
-		conf.matcher = "BF";
-		testConfigurations.push_back(conf);
-		//conf = {"SIFT", "SURF", "BF"};
-		conf.detector = "SIFT";
-		conf.extractor = "SURF";
-		conf.matcher = "BF";
-		testConfigurations.push_back(conf);
-		//conf = {"SIFT", "BRISK", "BF"};
-		conf.detector = "SIFT";
-		conf.extractor = "BRISK";
-		conf.matcher = "BF";
-		testConfigurations.push_back(conf);
-		//conf = {"SIFT", "FREAK", "BF"};
-		conf.detector = "SIFT";
-		conf.extractor = "FREAK";
-		conf.matcher = "BF";
-		testConfigurations.push_back(conf);
-		//conf = {"SIFT", "AKAZE", "BF"};
-		conf.detector = "SIFT";
-		conf.extractor = "AKAZE";
-		conf.matcher = "BF";
-		testConfigurations.push_back(conf);
-
-		//*********** SIFT FLANN Tests ***********//
-		//conf = {"SIFT", "SIFT", "FLANN"};
-		conf.detector = "SIFT";
-		conf.extractor = "SIFT";
-		conf.matcher = "FLANN";
-		testConfigurations.push_back(conf);
-		//conf = {"SIFT", "BRIEF", "FLANN"};
-		conf.detector = "SIFT";
-		conf.extractor = "BRIEF";
-		conf.matcher = "FLANN";
-		testConfigurations.push_back(conf);
-		//conf = {"SIFT", "ORB", "FLANN"};
-		conf.detector = "SIFT";
-		conf.extractor = "ORB";
-		conf.matcher = "FLANN";
-		testConfigurations.push_back(conf);
-		//conf = {"SIFT", "SURF", "FLANN"};
-		conf.detector = "SIFT";
-		conf.extractor = "SURF";
-		conf.matcher = "FLANN";
-		testConfigurations.push_back(conf);
-		//conf = {"SIFT", "BRISK", "FLANN"};
-		conf.detector = "SIFT";
-		conf.extractor = "BRISK";
-		conf.matcher = "FLANN";
-		testConfigurations.push_back(conf);
-		//conf = {"SIFT", "FREAK", "FLANN"};
-		conf.detector = "SIFT";
-		conf.extractor = "FREAK";
-		conf.matcher = "FLANN";
-		testConfigurations.push_back(conf);
-		//conf = {"SIFT", "AKAZE", "FLANN"};
-		conf.detector = "SIFT";
-		conf.extractor = "AKAZE";
-		conf.matcher = "FLANN";
-		testConfigurations.push_back(conf);
+	
 	}
 
 	if (doFAST)

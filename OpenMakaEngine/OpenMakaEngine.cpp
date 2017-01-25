@@ -59,7 +59,7 @@ int compareImages()
 
 	// recreate object pattern if it is not existing
 	analyzer->missingObjectPattern();
-	
+
 	// create new scene frame
 	SceneFrame* sceneFrame = new SceneFrame(inputImage, inputImageGray);
 
@@ -68,18 +68,19 @@ int compareImages()
 	cout << "Found: " << objectFound << endl;
 
 	// drawing green contours
-	
 
-	if (Geometry::isRectangle(sceneFrame->objectPosition)) {
 
+	if (Geometry::isRectangle(sceneFrame->objectPosition))
+	{
 		vector<cv::Point2f> coords = Geometry::rescale(sceneFrame->objectPosition);
 		cv::Rect bestFit = Geometry::fitRectangle(coords);
-	
-		cv::Mat result;
-		try {
-			result = Geometry::getRoi(inputImage, bestFit);
 
-		} catch (cv::Exception& e)
+		cv::Mat result;
+		try
+		{
+			result = Geometry::getRoi(inputImage, bestFit);
+		}
+		catch (cv::Exception& e)
 		{
 			const char* err_msg = e.what();
 			cout << "exception caught: " << err_msg << endl;
@@ -99,18 +100,56 @@ int _tmain(int argc, _TCHAR* argv[])
 	//compareImages();
 
 	// tell images
-	vector<string> images;
-	images.push_back("\\objects\\book1-1.jpg");
-	images.push_back("\\objects\\book1-2.jpg");
-	images.push_back("\\objects\\book1-3.jpg");
-	images.push_back("\\objects\\book1-4.jpg");
-	images.push_back("\\objects\\book1-5.jpg");
-	images.push_back("\\objects\\book1-6.jpg");
+	vector<string> images1;
+	images1.push_back("\\objects\\book1-1.jpg");
+	images1.push_back("\\objects\\book1-2.jpg");
+	images1.push_back("\\objects\\book1-3.jpg");
+	images1.push_back("\\objects\\book1-4.jpg");
+	images1.push_back("\\objects\\book1-5.jpg");
+	images1.push_back("\\objects\\book1-6.jpg");
+
+	vector<string> images2;
+	images2.push_back("\\objects\\book2-1.jpg");
+	images2.push_back("\\objects\\book2-2.jpg");
+	images2.push_back("\\objects\\book2-3.jpg");
+	images2.push_back("\\objects\\book2-4.jpg");
+	images2.push_back("\\objects\\book2-5.jpg");
+	images2.push_back("\\objects\\book2-6.jpg");
+
+	vector<string> images3;
+	images3.push_back("\\objects\\hardware1-1.jpg");
+	images3.push_back("\\objects\\hardware1-2.jpg");
+	images3.push_back("\\objects\\hardware1-3.jpg");
+	images3.push_back("\\objects\\hardware1-4.jpg");
+	images3.push_back("\\objects\\hardware1-5.jpg");
+	images3.push_back("\\objects\\hardware1-6.jpg");
+
+	vector<string> images4;
+	images4.push_back("\\objects\\hardware2-1.jpg");
+	images4.push_back("\\objects\\hardware2-2.jpg");
+	images4.push_back("\\objects\\hardware2-3.jpg");
+	images4.push_back("\\objects\\hardware2-4.jpg");
+	images4.push_back("\\objects\\hardware2-5.jpg");
+	images4.push_back("\\objects\\hardware2-6.jpg");
 
 	// get controller and run tests
 	Controller* ctrl = Controller::getInstance();
-	Controller::STORAGE_PATH= "C:\\Users\\tebbje\\workspace\\OpenMakaEngine";
-	ctrl->test(images, 1, 5);
+	Controller::STORAGE_PATH = "C:\\Users\\tebbje\\workspace\\OpenMakaEngine";
+
+	// do test
+	ctrl->test(images1, 1, 1);
+	ctrl->test(images2, 1, 1);
+	ctrl->test(images3, 1, 1);
+	ctrl->test(images4, 1, 1);
+
+	time_t t = time(0); // get time now
+	struct tm* now = localtime(& t);
+	cout << (now->tm_year + 1900) << '-'
+		<< (now->tm_mon + 1) << '-'
+		<< now->tm_mday << " - "
+		<< now->tm_hour << ":"
+		<< now->tm_min
+		<< endl;
 
 	// hold window
 	cout << "DONE" << endl;
