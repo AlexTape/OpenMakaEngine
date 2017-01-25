@@ -110,7 +110,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	// get controller and run tests
 	Controller* ctrl = Controller::getInstance();
 	Controller::STORAGE_PATH= "C:\\Users\\tebbje\\workspace\\OpenMakaEngine";
-	ctrl->test(images, 1, 1);
+	ctrl->test(images, 1, 5);
 
 	// hold window
 	cout << "DONE" << endl;
