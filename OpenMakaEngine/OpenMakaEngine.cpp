@@ -16,7 +16,44 @@
 using namespace std;
 using namespace om;
 
-static string path = "C:\\Users\\tebbje\\workspace\\OpenMakaEngine";
+int work() {
+	cv::namedWindow("Main", CV_WINDOW_KEEPRATIO); //resizable window;
+
+	cv::Mat sceneRgbImage, sceneGrayImage;
+
+	sceneRgbImage = cv::imread("C:\\Users\\tebbje\\workspace\\IMAGES\\B_10_0004564.png");
+    if (sceneRgbImage.empty()) {
+        std::cout << "Scene image cannot be read" << std::endl;
+        return 1;
+    }
+
+	cv::cvtColor(sceneRgbImage, sceneGrayImage, CV_RGB2GRAY);
+
+    Controller *controller = Controller::getInstance();
+
+    if (!controller->isInitialized) {
+        controller->initialize(sceneRgbImage, "C:\\Users\\tebbje\\workspace\\OpenMakaEngine");
+    }
+
+    controller->isModeObjectDetection(true);
+
+    // call display function with frame data
+    bool shouldQuit = false;
+    do {
+
+        // display single window with one analyzer configuration
+        controller->displayFunction(sceneRgbImage, sceneGrayImage);
+
+        // Read the keyboard input:
+        int keyCode = cv::waitKey(5);
+        if (keyCode == 27 || keyCode == 'q') {
+            shouldQuit = true;
+        }
+    } while (!shouldQuit);
+
+
+	return 0;
+}
 
 int compareImages()
 {
@@ -24,7 +61,7 @@ int compareImages()
 	cv::Mat inputImage, inputImageGray;
 	cout << "Processing.." << endl;
 
-	inputImage = cv::imread(path + "\\images\\card_frame.bmp");
+	inputImage = cv::imread("C:\\Users\\tebbje\\workspace\\IMAGES\\B_10_0004564_s.png");
 	if (inputImage.empty())
 	{
 		cout << "Scene image cannot be read" << endl;
@@ -53,12 +90,9 @@ int compareImages()
 	analyzer->initialize();
 
 	// add default object
-	cv::Mat objectImage = cv::imread(path + "\\images\\1card.png",
+	cv::Mat objectImage = cv::imread("C:\\Users\\tebbje\\workspace\\OpenMakaEngine\\images\\scala_black.png",
 	                                 CV_LOAD_IMAGE_GRAYSCALE);
 	analyzer->createObjectPattern(objectImage);
-
-	// recreate object pattern if it is not existing
-	analyzer->missingObjectPattern();
 
 	// create new scene frame
 	SceneFrame* sceneFrame = new SceneFrame(inputImage, inputImageGray);
@@ -67,38 +101,40 @@ int compareImages()
 	bool objectFound = analyzer->process(*sceneFrame);
 	cout << "Found: " << objectFound << endl;
 
-	// drawing green contours
-
-
-	if (Geometry::isRectangle(sceneFrame->objectPosition))
+	if (objectFound)
 	{
-		vector<cv::Point2f> coords = Geometry::rescale(sceneFrame->objectPosition);
-		cv::Rect bestFit = Geometry::fitRectangle(coords);
-
-		cv::Mat result;
-		try
+		// drawing green contours
+		if (Geometry::isRectangle(sceneFrame->objectPosition))
 		{
-			result = Geometry::getRoi(inputImage, bestFit);
-		}
-		catch (cv::Exception& e)
-		{
-			const char* err_msg = e.what();
-			cout << "exception caught: " << err_msg << endl;
-		}
+			vector<cv::Point2f> coords = Geometry::rescale(sceneFrame->objectPosition);
+			
+			/*cv::Rect bestFit = Geometry::fitRectangle(coords);
 
-		// show
-		cv::namedWindow("RESULT", CV_WINDOW_NORMAL);
-		cv::imshow("RESULT", result);
-		cvWaitKey(0);
+			cv::Mat result;
+			try
+			{
+				result = Geometry::getRoi(inputImage, bestFit);
+			}
+			catch (cv::Exception& e)
+			{
+				const char* err_msg = e.what();
+				cout << "exception caught: " << err_msg << endl;
+			}*/
+
+			Drawer::drawContour(inputImage, coords, cv::Scalar(5));
+
+			// show
+			cv::namedWindow("RESULT", CV_WINDOW_NORMAL);
+			cv::imshow("RESULT", inputImage);
+			cvWaitKey(0);
+		}
 	}
 
 	return 0;
 }
 
-int _tmain(int argc, _TCHAR* argv[])
+int test()
 {
-	//compareImages();
-
 	// tell images
 	vector<string> images1;
 	images1.push_back("\\objects\\book1-1.jpg");
@@ -150,6 +186,15 @@ int _tmain(int argc, _TCHAR* argv[])
 		<< now->tm_hour << ":"
 		<< now->tm_min
 		<< endl;
+
+	return 0;
+}
+
+int _tmain(int argc, _TCHAR* argv[])
+{
+	work();
+	//compareImages();
+	//test();
 
 	// hold window
 	cout << "DONE" << endl;

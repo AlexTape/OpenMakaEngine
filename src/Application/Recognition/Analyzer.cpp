@@ -578,8 +578,8 @@ bool Analyzer::process(SceneFrame &sceneFrame) {
         }
 
         if (Controller::MODE_STATISTICS) {
-            Controller::statistics("GoodTrainKeypoints", (int) goodTrainKeypoints.size());
-            Controller::statistics("GoodSceneKeypoints", (int) goodSceneKeypoints.size());
+            Controller::statistics("GoodTrainKeypoints", static_cast<int>(goodTrainKeypoints.size()));
+            Controller::statistics("GoodSceneKeypoints", static_cast<int>(goodSceneKeypoints.size()));
         }
 
         if (goodSceneKeypoints.size() != goodTrainKeypoints.size()) {
@@ -590,7 +590,7 @@ bool Analyzer::process(SceneFrame &sceneFrame) {
             return false;
         }
 
-        int inliers = 0;
+	    auto inliers = 0;
 
         // NOTE: minimum 4 points needed to calc homography
 		Int2SizeType _MINIMUM_MATCHES (MINIMUM_MATCHES);
@@ -624,7 +624,7 @@ bool Analyzer::process(SceneFrame &sceneFrame) {
 
         }
 
-        enoughInliers = (inliers >= MINIMUM_INLIERS);
+        enoughInliers = inliers >= MINIMUM_INLIERS;
 
         // find perspective and draw rectangle
         if (enoughInliers) {
