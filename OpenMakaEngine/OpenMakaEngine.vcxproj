@@ -80,7 +80,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <None Include="..\config\config.xml" />
+    <None Include="..\config\config.xml">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="..\README.md" />
     <None Include="..\src\Application\akaze\LICENSE" />
     <None Include="ReadMe.txt" />

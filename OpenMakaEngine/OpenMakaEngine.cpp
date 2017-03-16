@@ -173,10 +173,10 @@ int test()
 	Controller::STORAGE_PATH = "C:\\Users\\tebbje\\workspace\\OpenMakaEngine";
 
 	// do test
-	ctrl->test(images1, 1, 51);
-	ctrl->test(images2, 1, 51);
-	ctrl->test(images3, 1, 51);
-	ctrl->test(images4, 1, 51);
+	ctrl->test(images1, 0, 51);
+	ctrl->test(images2, 0, 51);
+	ctrl->test(images3, 0, 51);
+	ctrl->test(images4, 0, 51);
 
 	time_t t = time(0); // get time now
 	struct tm* now = localtime(& t);
@@ -192,9 +192,9 @@ int test()
 
 int _tmain(int argc, _TCHAR* argv[])
 {
-	work();
+	//work();
 	//compareImages();
-	//test();
+	test();
 
 	// hold window
 	cout << "DONE" << endl;
