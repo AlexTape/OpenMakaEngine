@@ -6,4 +6,6 @@ To make a decision which configuration should be used with OpenMakaAndroid App, 
 
 Feel free to contribute or fork.
 
+You can find a VS2010 Library according to this application here: https://github.com/AlexTape/OpenMakaLib
+
 Kinldy AlexTape
